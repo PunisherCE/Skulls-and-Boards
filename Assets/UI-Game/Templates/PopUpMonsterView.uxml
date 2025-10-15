@@ -1,0 +1,19 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="MainContainer" style="flex-grow: 1; background-color: rgb(255, 251, 251); margin-top: 8%; margin-right: 8%; margin-bottom: 8%; margin-left: 8%;">
+        <ui:VisualElement name="ContentContainer" style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="MonsterCard" style="flex-grow: 1; flex-direction: column; width: 40%;">
+                <ui:VisualElement name="Image" style="flex-grow: 1; height: 70%; background-color: rgba(0, 0, 0, 0.56);" />
+                <ui:VisualElement name="AbilitiesAndStats" style="flex-grow: 1; height: 30%; flex-direction: row;">
+                    <ui:VisualElement name="Ability" style="flex-grow: 1; width: 33.33%; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
+                    <ui:VisualElement name="Ability" style="flex-grow: 1; width: 33.33%; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
+                    <ui:VisualElement name="Ability" style="flex-grow: 1; width: 33.33%; border-top-width: 3px; border-right-width: 3px; border-bottom-width: 3px; border-left-width: 3px; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="Texts" style="flex-grow: 1; width: 60%;">
+                <ui:Label text="Blue Dragon" name="Title" style="height: 10%; -unity-text-align: middle-center; font-size: 40px; background-color: rgba(255, 255, 255, 0.65);" />
+                <ui:Label text="Shimmering with frost-kissed scales and eyes like frozen sapphires, the blue dragon commands the battlefield with chilling majesty. Its breath unleashes a torrent of ice, freezing foes mid-charge and sculpting the terrain into jagged glaciers. Ancient and cunning, it watches from above with a regal stillness, wings unfurling like stormclouds. Legends whisper that its roar can summon blizzards and its presence alone turns summer winds to winter gales.&#10;" enabled="false" name="Lore" style="height: 70%; white-space: normal; font-size: 18px; color: rgb(0, 0, 0); -unity-font-style: bold-and-italic; background-color: rgb(255, 255, 255); -unity-text-outline-color: rgb(0, 0, 0);" />
+                <ui:Button text="GO BACK" name="Back" style="-unity-font-style: bold; font-size: 18px; height: 20%; flex-shrink: 1;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

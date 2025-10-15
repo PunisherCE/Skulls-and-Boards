@@ -1,0 +1,112 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="PopUpMonsterView" src="project://database/Assets/UI-Game/Templates/PopUpMonsterView.uxml?fileID=9197481963319205126&amp;guid=f359e3161cf98454984a8b0bcbf527d1&amp;type=3#PopUpMonsterView" />
+    <Style src="project://database/Assets/UI-Game/Board/BoardStylesheet.uss?fileID=7433441132597879392&amp;guid=e2f1927e440a9de4b98d55eb01434a5b&amp;type=3" />
+    <ui:VisualElement name="MainContainer" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="Board" style="flex-grow: 1; width: 56.25%; height: 100%; flex-direction: row; flex-wrap: wrap;">
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+            <ui:VisualElement name="Tile" class="tile" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Interface" style="flex-grow: 1; width: 43.75%; height: 100%;">
+            <ui:VisualElement name="UnitBlock" style="flex-grow: 1; flex-direction: row; flex-wrap: wrap;">
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+                <ui:VisualElement name="Slot" class="monsters-selection unit-slot" />
+            </ui:VisualElement>
+            <ui:VisualElement name="SelectedUnits" style="flex-grow: 1; flex-direction: row;">
+                <ui:VisualElement name="OwnMonster" style="flex-grow: 1;">
+                    <ui:VisualElement name="Stats" style="flex-grow: 1; flex-direction: row; height: 50%;">
+                        <ui:VisualElement name="Image" style="flex-grow: 1; width: 70%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-right-width: 3px; border-left-width: 3px;" />
+                        <ui:VisualElement name="StatsBars" style="flex-grow: 1; width: 30%; flex-direction: row;">
+                            <ui:VisualElement name="HeathBar" style="flex-grow: 1; width: 50%; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-right-width: 3px; border-top-left-radius: 3%; border-top-right-radius: 3%; border-bottom-right-radius: 3%; border-bottom-left-radius: 3%;" />
+                            <ui:VisualElement name="ManaBar" style="flex-grow: 1; width: 50%; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-right-width: 3px; border-top-left-radius: 3%; border-top-right-radius: 3%; border-bottom-right-radius: 3%; border-bottom-left-radius: 3%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Habilities" style="flex-grow: 1; height: 50%; flex-direction: row; flex-wrap: wrap;">
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="EnemyMonster" style="flex-grow: 1;">
+                    <ui:VisualElement name="Stats" style="flex-grow: 1; flex-direction: row; height: 50%;">
+                        <ui:VisualElement name="Image" style="flex-grow: 1; width: 70%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-right-width: 3px; border-left-width: 3px;" />
+                        <ui:VisualElement name="StatsBars" style="flex-grow: 1; width: 30%; flex-direction: row;">
+                            <ui:VisualElement name="HeathBar" style="flex-grow: 1; width: 50%; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-right-width: 3px; border-top-left-radius: 3%; border-top-right-radius: 3%; border-bottom-right-radius: 3%; border-bottom-left-radius: 3%;" />
+                            <ui:VisualElement name="ManaBar" style="flex-grow: 1; width: 50%; background-color: rgb(255, 255, 255); border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); border-right-width: 3px; border-top-left-radius: 3%; border-top-right-radius: 3%; border-bottom-right-radius: 3%; border-bottom-left-radius: 3%;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Habilities" style="flex-grow: 1; height: 50%; flex-direction: row; flex-wrap: wrap;">
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                        <ui:VisualElement name="Hability" class="abilities" style="flex-grow: 1;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PopupOverlay" style="flex-grow: 1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; justify-content: center; align-self: center; display: none; background-color: rgba(0, 0, 0, 0.63); transition-duration: 0.5s;">
+        <ui:Instance template="PopUpMonsterView" name="TemplateContainer" enabled="true" style="width: 100%; height: 100%; display: flex;" />
+    </ui:VisualElement>
+</ui:UXML>
