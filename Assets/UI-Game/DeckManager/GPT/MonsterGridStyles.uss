@@ -1,0 +1,23 @@
+.grid-cell {
+    width: 100px;
+    height: 100px;
+    border-width: 1px;
+    border-color: gray;
+    margin: 2px;
+}
+
+.monster-slot {
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.remove-button {
+    position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+}

@@ -1,37 +1,100 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="PopUpMonsterView" src="project://database/Assets/UI-Game/Templates/PopUpMonsterView.uxml?fileID=9197481963319205126&amp;guid=f359e3161cf98454984a8b0bcbf527d1&amp;type=3#PopUpMonsterView" />
     <Style src="project://database/Assets/UI-Game/DeckManager/DeckStylesheet.uss?fileID=7433441132597879392&amp;guid=ef406ef705cc25c4b9ee294f1997439c&amp;type=3#DeckStylesheet" />
-    <ui:VisualElement name="MainContainer" style="flex-grow: 1;">
-        <ui:VisualElement name="RowsToFill" style="flex-grow: 1; height: 50%; flex-direction: row; flex-wrap: wrap;">
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
-            <ui:VisualElement name="Tiles" class="tiles" />
+    <ui:VisualElement name="MainContainer" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="Menu" style="flex-grow: 1; width: 30%;">
+            <ui:VisualElement name="MonsterCard" style="flex-grow: 1; height: 60%;">
+                <ui:VisualElement name="Card" style="flex-grow: 1; height: 70%; flex-direction: row;">
+                    <ui:VisualElement name="Image" style="flex-grow: 1; width: 75%;" />
+                    <ui:VisualElement name="Bars" style="flex-grow: 1; width: 25%; flex-direction: row;">
+                        <ui:VisualElement name="Health" style="flex-grow: 1; width: 50%; height: 100%; background-color: rgb(113, 113, 113); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+                            <ui:Label text="300" style="white-space: normal; font-size: 30px; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="Mana" style="flex-grow: 1; width: 50%; height: 100%; background-color: rgb(113, 113, 113); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
+                            <ui:Label text="100" style="white-space: normal; font-size: 30px; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="AbilitiesContainer" style="flex-grow: 1; height: 30%; flex-direction: row;">
+                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 33.33%; height: 100%; flex-shrink: 0.33;" />
+                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 33.33%; height: 100%; flex-shrink: 0.33;" />
+                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 33.33%; height: 100%; flex-shrink: 0.33;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="MenuButtons" style="flex-grow: 0; height: 40%; flex-direction: row; flex-wrap: wrap; padding-bottom: 10px; padding-top: 2px; padding-right: 2px; padding-left: 2px; background-image: url(&quot;project://database/Assets/Sprites/PurpleBase.png?fileID=2800000&amp;guid=9b708ea66d46d2c418feefdbb0f51307&amp;type=3#PurpleBase&quot;); -unity-background-image-tint-color: rgb(111, 107, 107);">
+                <ui:Button text="SAVE" name="Save" class="menu-buttons" />
+                <ui:Button text="LOAD" name="Load" class="menu-buttons" />
+                <ui:Button text="BACK" name="Back" class="menu-buttons" />
+                <ui:Button text="RESET" name="Reset" class="menu-buttons" />
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="UnitsToSelect" style="flex-grow: 1; height: 25%; flex-direction: row;">
-            <ui:Button text="&lt;" name="MoveLeft" class="moving-buttons" style="width: 14.2857%; height: 100%; font-size: 100px;" />
-            <ui:ScrollView mode="Horizontal" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="width: 71.4285%; flex-direction: row; background-color: rgb(149, 149, 149);" />
-            <ui:Button text="&gt;" name="MoveRight" class="moving-buttons" style="width: 14.2857%; height: 100%; font-size: 100px;" />
+        <ui:VisualElement name="Selection" style="flex-grow: 1; width: 70%;">
+            <ui:VisualElement name="DeckInfo" style="flex-grow: 1; height: 7%; background-color: rgb(38, 40, 75); flex-direction: row; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-left-width: 2px;">
+                <ui:Label text="My Deck" name="DeckName" style="width: 70%; color: rgb(255, 255, 255); font-size: 25px; -unity-font-style: bold; -unity-text-align: middle-center;" />
+                <ui:Label text="  DC:" name="DC" style="width: 10%; font-size: 25px; -unity-font-style: bold-and-italic; color: rgb(255, 255, 255); border-left-width: 3px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); -unity-text-align: middle-left;" />
+                <ui:Label text="000" name="DeckCost" style="width: 20%; color: rgb(255, 255, 255); font-size: 25px; -unity-font-style: bold; -unity-text-align: middle-center; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="RowsToFill" style="flex-grow: 1; height: 35%; flex-direction: row; flex-wrap: wrap;">
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+                <ui:VisualElement name="Tiles" class="tiles" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Separator" style="flex-grow: 1; height: 3%; background-image: url(&quot;project://database/Assets/Sprites/PurpleBase.png?fileID=2800000&amp;guid=9b708ea66d46d2c418feefdbb0f51307&amp;type=3#PurpleBase&quot;); background-color: rgb(49, 51, 84); -unity-background-image-tint-color: rgba(255, 255, 255, 0.17);" />
+            <ui:VisualElement name="UnitsToSelect" style="flex-grow: 1; height: 55%; flex-direction: row;">
+                <ui:ScrollView mode="Horizontal" vertical-scroller-visibility="Hidden" name="ScrollSelector" style="width: 100%; background-color: rgb(149, 149, 149);">
+                    <ui:VisualElement style="flex-grow: 1; flex-wrap: wrap;">
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                        <ui:VisualElement name="Monsters" class="monsters" style="flex-direction: row; height: 33.33%;" />
+                    </ui:VisualElement>
+                </ui:ScrollView>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="MenuButtons" style="height: 25%; flex-direction: row;">
-            <ui:Button text="BACK" name="Back" style="height: 100%; width: 20%; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; font-size: 45px; color: rgb(0, 0, 0); max-width: 25%; flex-shrink: 0.2;" />
-            <ui:Button text="RESET" name="Reset" style="height: 100%; width: 20%; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; font-size: 45px; color: rgb(0, 0, 0); max-width: 25%; flex-shrink: 0.25;" />
-            <ui:Button text="INFO" name="Info" style="height: 100%; width: 20%; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; font-size: 45px; color: rgb(0, 0, 0); max-width: 25%; flex-shrink: 0.25;" />
-            <ui:Button text="SAVE" name="Save" style="height: 100%; width: 20%; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; font-size: 45px; color: rgb(0, 0, 0); max-width: 25%; flex-shrink: 0.25;" />
-            <ui:Button text="LOAD" name="Load" focusable="true" style="height: 100%; width: 20%; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; font-size: 45px; color: rgb(0, 0, 0); max-width: 25%; flex-shrink: 0.2;" />
-        </ui:VisualElement>
-    </ui:VisualElement>
-    <ui:VisualElement name="PopupOverlay" style="flex-grow: 1; position: absolute; top: 0; left: 0; width: 100%; height: 100%; justify-content: center; align-self: center; display: none; background-color: rgba(0, 0, 0, 0.63); transition-duration: 0.5s;">
-        <ui:Instance template="PopUpMonsterView" name="TemplateContainer" enabled="true" style="width: 100%; height: 100%; display: flex;" />
     </ui:VisualElement>
 </ui:UXML>

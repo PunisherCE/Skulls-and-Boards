@@ -1,0 +1,54 @@
+:root {
+}
+
+.main-screen-red {
+    background-color: rgba(142, 0, 0, 0.47);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(142, 0, 0);
+    border-right-color: rgb(142, 0, 0);
+    border-top-color: rgb(142, 0, 0);
+    border-bottom-color: rgb(142, 0, 0);
+}
+
+.main-screen-blue {
+    background-color: rgba(0, 5, 142, 0.47);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgb(0, 5, 142);
+    border-right-color: rgb(0, 5, 142);
+    border-top-color: rgb(0, 5, 142);
+    border-bottom-color: rgb(0, 5, 142);
+}
+
+.login-selected {
+    width: 50%;
+    font-size: 25px;
+    background-color: rgba(142, 0, 0, 0.47);
+    color: rgb(255, 255, 255);
+}
+
+.login-unselected {
+    width: 50%;
+    font-size: 25px;
+    background-color: rgba(142, 0, 0, 0.31);
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.signin-selected {
+    width: 50%;
+    font-size: 25px;
+    background-color: rgba(0, 5, 142, 0.47);
+    color: rgb(255, 255, 255);
+}
+
+.signin-unselected {
+    width: 50%;
+    font-size: 25px;
+    background-color: rgba(0, 6, 142, 0.31);
+    color: rgba(255, 255, 255, 0.4);
+}

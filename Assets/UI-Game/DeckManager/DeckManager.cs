@@ -4,29 +4,38 @@ using UnityEngine.UIElements;
 
 public class DeckManager : MonoBehaviour
 {
-    Button info;
-    VisualElement popup;
-    Button popupBack;
+    [SerializeField] GameObject mainMenu;
+    [SerializeField] GameObject dmInitialization;
+    Button back;
 
+    private void Start()
+    {
+        
+    }
 
     private void OnEnable()
     {
+        //reload deck info
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
-        info = root.Q<Button>("Info");
-        popup = root.Q<VisualElement>("PopupOverlay");
-        popupBack = popup.Q<Button>("Back");
-        info.clicked += InfoClicked;
-        popupBack.clicked += PopupBackClicked;
-    }
+        back = root.Q<Button>("Back");
+        back.clicked += () =>
+        {
+            mainMenu.SetActive(true);
+            dmInitialization.SetActive(false);
+            this.gameObject.SetActive(false);
+        };
 
-    private void PopupBackClicked()
-    {
-        popup.style.display = DisplayStyle.None; // fully hidden
-    }
-
-    private void InfoClicked()
-    {
-        popup.style.display = DisplayStyle.Flex; // shown and interactive
     }
 
 }
+
+/*
+        UIDocument mainMenuUI;
+        UIDocument deckManagerUI;
+        UIDocument boardUI;
+        mainMenuUI = GameObject.Find("MainMenu").GetComponent<UIDocument>();
+        deckManagerUI = GameObject.Find("DeckManager").GetComponent<UIDocument>();
+        boardUI = GameObject.Find("Board").GetComponent<UIDocument>();
+        deckManagerUI.rootVisualElement.style.display = DisplayStyle.None;
+        boardUI.rootVisualElement.style.display = DisplayStyle.None;
+*/

@@ -18,25 +18,12 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+    background-image: url("project://database/Assets/Sprites/marble%20white.png?fileID=2800000&guid=552010a552ae75947bf3600ea9058ea7&type=3#marble white");
 }
 
-.tiles :hover {
-    flex-grow: 1;
-    width: 14.2857%;
-    height: 50%;
+.tiles:hover {
     background-color: rgb(84, 84, 84);
-    border-top-width: 3px;
-    border-right-width: 3px;
-    border-bottom-width: 3px;
-    border-left-width: 3px;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
+    -unity-background-image-tint-color: rgb(173, 173, 173);
 }
 
 .moving-buttons {
@@ -52,4 +39,70 @@
     border-right-color: rgb(0, 0, 0);
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
+}
+
+.menu-buttons {
+    height: 50%;
+    flex-shrink: 0.5;
+    font-size: 20px;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    background-color: rgba(65, 64, 202, 0.89);
+    color: rgb(255, 247, 247);
+    -unity-font-style: bold-and-italic;
+    width: 47%;
+}
+
+.menu-buttons:hover {
+    background-color: rgba(47, 46, 159, 0.89);
+}
+
+.monsters {
+    flex-grow: 1;
+    width: 14.2857%;
+    height: 50%;
+    background-color: rgb(123, 123, 123);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    background-image: url("project://database/Assets/Sprites/marble%20gray.png?fileID=2800000&guid=fa5812678133b0641824eda5b8e807a2&type=3#marble gray");
+}
+
+.abilities {
+    flex-grow: 1;
+    width: 14.2857%;
+    height: 50%;
+    background-color: rgb(123, 123, 123);
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    background-image: url("project://database/Assets/Sprites/marble%20gray.png?fileID=2800000&guid=fa5812678133b0641824eda5b8e807a2&type=3#marble gray");
 }

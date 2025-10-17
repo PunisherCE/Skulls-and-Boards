@@ -57,3 +57,22 @@
     border-top-color: rgb(0, 0, 0);
     border-bottom-color: rgb(0, 0, 0);
 }
+
+.black-tile {
+    background-image: url("project://database/Assets/Sprites/marble%20black.png?fileID=2800000&guid=27c7ab99a0d553e45b73926a1c18a315&type=3#marble black");
+}
+
+.white-tile {
+    background-image: url("project://database/Assets/Sprites/marble%20white.png?fileID=2800000&guid=552010a552ae75947bf3600ea9058ea7&type=3#marble white");
+}
+
+.gray-tile {
+    background-image: url("project://database/Assets/Sprites/marble%20gray.png?fileID=2800000&guid=fa5812678133b0641824eda5b8e807a2&type=3#marble gray");
+    -unity-background-image-tint-color: rgb(168, 168, 168);
+}
+
+#ChatText > #unity-text-input {
+    background-color: rgba(0, 0, 0, 0.29);
+    color: rgb(255, 247, 247);
+    font-size: 20px;
+}

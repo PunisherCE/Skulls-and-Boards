@@ -1,0 +1,48 @@
+:root {
+}
+
+.buttons {
+    margin-bottom: 15%;
+    font-size: 20px;
+    color: rgb(197, 163, 1);
+    background-color: rgba(140, 0, 142, 0.48);
+    -unity-font-style: bold-and-italic;
+    border-left-color: rgba(5, 55, 16, 0.59);
+    border-right-color: rgba(5, 55, 16, 0.59);
+    border-top-color: rgba(5, 55, 16, 0.59);
+    border-bottom-color: rgba(5, 55, 16, 0.59);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 10%;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10%;
+}
+
+.buttons:hover {
+    margin-bottom: 15%;
+    font-size: 20px;
+    color: rgb(197, 163, 1);
+    background-color: rgba(95, 0, 96, 0.48);
+    -unity-font-style: bold-and-italic;
+    border-left-color: rgba(5, 55, 16, 0.59);
+    border-right-color: rgba(5, 55, 16, 0.59);
+    border-top-color: rgba(5, 55, 16, 0.59);
+    border-bottom-color: rgba(5, 55, 16, 0.59);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-top-left-radius: 10%;
+    border-top-right-radius: 10%;
+    border-bottom-right-radius: 10%;
+    border-bottom-left-radius: 10%;
+}
+
+#ChatText > #unity-text-input {
+    background-color: rgba(0, 0, 0, 0.29);
+    color: rgb(255, 247, 247);
+    font-size: 20px;
+}
