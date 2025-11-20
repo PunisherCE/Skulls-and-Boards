@@ -8,11 +8,11 @@
             <ui:Button text="Social" name="Social" class="buttons" />
         </ui:VisualElement>
         <ui:VisualElement name="ServerChat" style="flex-grow: 1; width: 70%; padding-top: 5%; padding-right: 5%; padding-bottom: 5%; padding-left: 5%; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
-            <ui:Label text="Global Chat" style="-unity-text-align: middle-center; font-size: 30px; color: rgb(255, 255, 255); height: 10%; align-self: center;" />
-            <ui:ScrollView style="flex-grow: 1; height: 75%; background-color: rgba(0, 0, 0, 0.14); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgba(0, 0, 0, 0.4); border-right-color: rgba(0, 0, 0, 0.4); border-top-color: rgba(0, 0, 0, 0.4); border-bottom-color: rgba(0, 0, 0, 0.4);" />
-            <ui:VisualElement style="flex-grow: 1; height: 15%; flex-direction: row;">
-                <ui:Button text="SEND" style="font-size: 16px; -unity-font-style: bold; background-color: rgba(88, 0, 190, 0.51); color: rgb(255, 181, 0);" />
-                <ui:TextField placeholder-text="Global Chat" name="ChatText" class="chat-input" style="flex-grow: 1;" />
+            <ui:Label text="Global Chat" name="Title" style="-unity-text-align: middle-center; font-size: 30px; color: rgb(255, 181, 0); height: 10%; align-self: center;" />
+            <ui:ListView name="ChatRegistry" class="scroll" style="font-size: 24px; -unity-font-style: bold; color: rgb(255, 255, 255); height: 85%; flex-shrink: 0; min-height: 85%; max-height: 85%;" />
+            <ui:VisualElement name="ChatInput" style="flex-grow: 1; height: 15%; flex-direction: row; min-height: 15%; padding-bottom: 20px;">
+                <ui:Button text="SEND" name="Send" style="font-size: 16px; -unity-font-style: bold; background-color: rgba(88, 0, 190, 0.51); color: rgb(255, 181, 0); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;" />
+                <ui:TextField placeholder-text="Global Chat" name="ChatText" max-length="100" class="chat-input" style="flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

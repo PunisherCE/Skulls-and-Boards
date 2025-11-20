@@ -7,10 +7,10 @@
                     <ui:VisualElement name="Image" style="flex-grow: 1; width: 75%;" />
                     <ui:VisualElement name="Bars" style="flex-grow: 1; width: 25%; flex-direction: row;">
                         <ui:VisualElement name="Health" style="flex-grow: 1; width: 50%; height: 100%; background-color: rgb(113, 113, 113); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
-                            <ui:Label text="300" style="white-space: normal; font-size: 30px; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold;" />
+                            <ui:Label text="300" style="white-space: normal; font-size: 35px; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold;" />
                         </ui:VisualElement>
                         <ui:VisualElement name="Mana" style="flex-grow: 1; width: 50%; height: 100%; background-color: rgb(113, 113, 113); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
-                            <ui:Label text="100" style="white-space: normal; font-size: 30px; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold;" />
+                            <ui:Label text="100" style="white-space: normal; font-size: 35px; height: 100%; -unity-text-align: middle-center; -unity-font-style: bold;" />
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>

@@ -18,7 +18,9 @@ public class MonsterDragger : MouseManipulator
 
     protected override void UnregisterCallbacksFromTarget()
     {
-        throw new System.NotImplementedException();
+        target.UnregisterCallback<MouseDownEvent>(OnMouseDown);
+        target.UnregisterCallback<MouseMoveEvent>(OnMouseMove);
+        target.UnregisterCallback<MouseUpEvent>(OnMouseUp);
     }
 
     protected void OnMouseDown(MouseDownEvent e)
