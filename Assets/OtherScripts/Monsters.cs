@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Linq;
 
 public class Monsters : MonoBehaviour
 {
@@ -63,6 +64,15 @@ public class Monsters : MonoBehaviour
     {
         if (currentIndex % 7 != 6)
         {
+            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex + 1))
+            {
+                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 1).Key;
+                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                {
+                    
+                } else return;
+            }
+
             currentIndex += 1;
             //Move(currentIndex);
             StartCoroutine(LerpToTile(currentIndex));
@@ -73,6 +83,14 @@ public class Monsters : MonoBehaviour
     {
         if (currentIndex % 7 != 0)
         {
+            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex - 1))
+            {
+                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 1).Key;
+                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                {
+                    
+                } else return;
+            }
             currentIndex -= 1;
             //Move(currentIndex);
             StartCoroutine(LerpToTile(currentIndex));
@@ -83,6 +101,15 @@ public class Monsters : MonoBehaviour
     {
         if (currentIndex >= 7)
         {
+            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex - 7))
+            {
+                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 7).Key;
+                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                {
+                    
+                } else return;
+            }
+
             currentIndex -= 7;
             //Move(currentIndex);
             StartCoroutine(LerpToTile(currentIndex));
@@ -93,6 +120,15 @@ public class Monsters : MonoBehaviour
     {
         if (currentIndex < 42)
         {
+            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex + 7))
+            {
+                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 7).Key;
+                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                {
+                    
+                } else return;
+            }
+
             currentIndex += 7;
             //Move(currentIndex);
             StartCoroutine(LerpToTile(currentIndex));
@@ -107,7 +143,7 @@ public class Monsters : MonoBehaviour
         Vector3 targetPos = BoardManager.Instance.tilePrefab[index].transform.position;
 
         float elapsed = 0f;
-        float duration = 1f; // one second
+        float duration = 0.7f; // one second
 
         while (elapsed < duration)
         {

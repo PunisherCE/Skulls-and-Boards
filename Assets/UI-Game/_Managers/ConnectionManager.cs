@@ -77,15 +77,6 @@ public class ConnectionManager : MonoBehaviour
             await socket.SendAsync(buffer, WebSocketMessageType.Text, true, cts.Token);
         }
     }
-    public static async void SendMessageMove(string message)
-    {
-        if (socket != null && socket.State == WebSocketState.Open)
-        {
-            var encoded = Encoding.UTF8.GetBytes(message);
-            var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
-            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, cts.Token);
-        }
-    }
     public static void SendMovement(int monster_id, int tileOrigin, int tileDestination, string action)
     {
         if(socket != null && socket.State == WebSocketState.Open)
@@ -99,7 +90,7 @@ public class ConnectionManager : MonoBehaviour
                 success = true
             };
             string jsonMessage = JsonUtility.ToJson(payload);
-            SendMessageMove(jsonMessage);
+            SendMessage(jsonMessage);
         }
     }
 
@@ -129,10 +120,4 @@ public class ConnectionManager : MonoBehaviour
     }
 
     //Receivable payloads
-    [System.Serializable]
-    public class MovementConfirmationPayload
-    {
-        public int type = 1;
-        public bool success;
-    }
 }
