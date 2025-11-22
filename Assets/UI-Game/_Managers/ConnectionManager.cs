@@ -9,6 +9,7 @@ public class ConnectionManager : MonoBehaviour
 {
     private static ClientWebSocket socket;
     private static CancellationTokenSource cts;
+    public static string user_id;
 
     private async void Start()
     {
@@ -17,6 +18,14 @@ public class ConnectionManager : MonoBehaviour
         await socket.ConnectAsync(new Uri("wss://fbb9192efe60.ngrok-free.app/ws"), cts.Token);
         Debug.Log("WebSocket connected!");
         StartCoroutine(ReceiveLoop());
+    }
+    private async void OnDestroy()
+    {
+        if (socket != null && socket.State == WebSocketState.Open)
+        {
+            await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
+        }
+        cts?.Cancel();
     }
 
     private IEnumerator ReceiveLoop()
@@ -30,19 +39,34 @@ public class ConnectionManager : MonoBehaviour
             var result = task.Result;
             string message = Encoding.UTF8.GetString(buffer, 0, result.Count);
             Debug.Log($"Received: {message}");
-            MenuManager.AddChatMessage(message);
-            // Update UI or game state here
+            // Step 1: parse envelope
+            PacketEnvelope envelope = JsonUtility.FromJson<PacketEnvelope>(message);
+
+            // Step 2: branch by type
+            if (envelope.type == 0)
+            {
+                // Parse as ChatPacket
+                ChatPayload chat = JsonUtility.FromJson<ChatPayload>(message);
+                MenuManager.AddChatMessage(message);
+                //MenuManager.AddChatMessage(chat.user_id + ": " + chat.message);
+            }
+            else if (envelope.type == 1)
+            {
+                // Parse as UserPacket
+                MovementPayload movement = JsonUtility.FromJson<MovementPayload>(message);
+                Monsters monster = BoardManager.Instance.GetMonster(movement.monster_id);
+                if (monster != null && movement.success)
+                {
+                    monster.currentIndex = movement.tile_destination;
+                    monster.transform.position = BoardManager.Instance.tilePrefab[monster.currentIndex].transform.position;
+                    monster.onMonsterMoved?.Invoke(monster.currentIndex);
+                } else {
+                    Debug.LogWarning($"Monster with ID {movement.monster_id} not found or movement failed.");
+                }
+            }
         }
     }
 
-    private async void OnDestroy()
-    {
-        if (socket != null && socket.State == WebSocketState.Open)
-        {
-            await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Closing", CancellationToken.None);
-        }
-        cts?.Cancel();
-    }
 
     public static new async void SendMessage(string message)
     {
@@ -52,5 +76,63 @@ public class ConnectionManager : MonoBehaviour
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
             await socket.SendAsync(buffer, WebSocketMessageType.Text, true, cts.Token);
         }
+    }
+    public static async void SendMessageMove(string message)
+    {
+        if (socket != null && socket.State == WebSocketState.Open)
+        {
+            var encoded = Encoding.UTF8.GetBytes(message);
+            var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
+            await socket.SendAsync(buffer, WebSocketMessageType.Text, true, cts.Token);
+        }
+    }
+    public static void SendMovement(int monster_id, int tileOrigin, int tileDestination, string action)
+    {
+        if(socket != null && socket.State == WebSocketState.Open)
+        {
+            MovementPayload payload = new MovementPayload
+            {
+                monster_id = monster_id,
+                tile_origin = tileOrigin,
+                tile_destination = tileDestination,
+                action = action,
+                success = true
+            };
+            string jsonMessage = JsonUtility.ToJson(payload);
+            SendMessageMove(jsonMessage);
+        }
+    }
+
+    [System.Serializable]
+    public class PacketEnvelope
+    {
+        public int type;
+    }
+
+    //Sendable payloads
+    [System.Serializable]
+    public class ChatPayload
+    {
+        public int type = 0;
+        public int user_id;
+        public string message;
+    }
+    [System.Serializable]
+    public class MovementPayload
+    {
+        public int type = 1;
+        public int monster_id;
+        public int tile_origin;
+        public int tile_destination;
+        public string action;
+        public bool success;
+    }
+
+    //Receivable payloads
+    [System.Serializable]
+    public class MovementConfirmationPayload
+    {
+        public int type = 1;
+        public bool success;
     }
 }

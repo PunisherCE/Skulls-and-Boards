@@ -70,11 +70,6 @@ public class MenuManager : MonoBehaviour
         });
     }
 
-    private void AboutClicked()
-    {
-        throw new NotImplementedException();
-    }
-
     private void BuildDeckClicked()
     {
         deckManagerUI.SetActive(true);
