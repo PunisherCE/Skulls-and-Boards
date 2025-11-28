@@ -3,10 +3,10 @@ using UnityEngine.InputSystem; // new Input System namespace
 
 public class SmoothZoomCamera : MonoBehaviour
 {
-    public float zoomSpeed = 5f;
-    public float moveSpeed = 5f;
-    public float minZoom = 2f;
-    public float maxZoom = 10f;
+    public float zoomSpeed = 1f;
+    public float moveSpeed = 1f;
+    public float minZoom = 2.5f;
+    public float maxZoom = 5f;
     public InputAction scrollClickAction;
 
 
@@ -33,7 +33,7 @@ public class SmoothZoomCamera : MonoBehaviour
             targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
 
             Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            if(mouseWorldPos.x < -4.5f || mouseWorldPos.x > 4.5f || mouseWorldPos.y < -4.5f || mouseWorldPos.y > 4.5f)
+            if(mouseWorldPos.x < -4f || mouseWorldPos.x > 4f || mouseWorldPos.y < -4f || mouseWorldPos.y > 4f)
             {
                 mouseWorldPos = new Vector3(0f, 0f, transform.position.z);
             }
@@ -55,13 +55,17 @@ public class SmoothZoomCamera : MonoBehaviour
             targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
 
             Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            if(mouseWorldPos.x < -4.5f || mouseWorldPos.x > 4.5f || mouseWorldPos.y < -4.5f || mouseWorldPos.y > 4.5f)
+            if(mouseWorldPos.x < -4f || mouseWorldPos.x > 4f || mouseWorldPos.y < -4f || mouseWorldPos.y > 4f)
             {
                 mouseWorldPos = new Vector3(0f, 0f, transform.position.z);
             }
             mouseWorldPos.z = transform.position.z;
             targetPos = mouseWorldPos;
         }
+
+        targetPos.x = Mathf.Clamp(targetPos.x, -2.8f, 2.8f);
+        targetPos.y = Mathf.Clamp(targetPos.y, -2.8f, 2.8f);
+
 
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomSpeed);
         transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * moveSpeed);

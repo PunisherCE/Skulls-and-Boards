@@ -1,13 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI-Game/LogIn/LogInStylesheet.uss?fileID=7433441132597879392&amp;guid=886a65120e42e2948bd86a76769e8d72&amp;type=3#LogInStylesheet" />
-    <ui:VisualElement name="MainContainer" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Temple%20Entrance%202.png?fileID=2800000&amp;guid=5be6e6328658510418020936817886d5&amp;type=3#Temple Entrance 2&quot;); flex-direction: row;">
+    <ui:VisualElement name="MainContainer" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Sprites/Backgrounds/Temple%20Entrance%202.png?fileID=2800000&amp;guid=5be6e6328658510418020936817886d5&amp;type=3#Temple Entrance 2&quot;); flex-direction: row;">
         <ui:VisualElement name="LogIn" style="flex-grow: 1; width: 50%; padding-top: 6%; padding-right: 10%; padding-bottom: 6%; padding-left: 3%;">
             <ui:VisualElement name="mainScreen" class="main-screen-red" style="flex-grow: 1; height: 85%; border-top-left-radius: 10%; border-top-right-radius: 10%; border-bottom-right-radius: 10%; border-bottom-left-radius: 10%; padding-top: 50px; padding-right: 50px; padding-bottom: 50px; padding-left: 50px;">
                 <ui:TextField placeholder-text="Email" name="LogInMail" enabled="false" max-length="30" style="padding-bottom: 30px; display: none;" />
                 <ui:TextField placeholder-text="User Name" name="LogInName" max-length="16" style="padding-bottom: 30px;" />
                 <ui:TextField placeholder-text="Password" name="LogInPassword" password="true" max-length="30" style="padding-bottom: 30px;" />
                 <ui:TextField placeholder-text="Confirm Password" name="ConfirmPassword" password="true" max-length="30" enabled="false" style="padding-bottom: 30px; display: none;" />
-                <ui:Button text="Log In" name="LogSignButton" style="width: 25%; align-self: center; background-color: rgba(0, 0, 0, 0.65); -unity-font-style: bold; color: rgb(255, 255, 255); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; margin-bottom: 30px;" />
+                <ui:Button text="Log In" name="LogSignButton" class="main-button" style="width: 25%; align-self: center; background-color: rgba(0, 0, 0, 0.65); -unity-font-style: bold; color: rgb(255, 255, 255); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; margin-bottom: 30px;" />
                 <ui:VisualElement name="BasicInfo" style="flex-grow: 1;">
                     <ui:Label text="Version: 0.0.1" name="BasicInfoTitle" style="font-size: 16px; color: rgb(255, 255, 255); -unity-font-style: bold; -unity-text-align: middle-center;" />
                     <ui:Label name="BasicInfoText" style="font-size: 16px; color: rgb(255, 255, 255); -unity-font-style: bold; -unity-text-align: middle-center;" />

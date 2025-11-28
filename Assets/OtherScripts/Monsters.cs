@@ -2,19 +2,27 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Linq;
+using UnityEngine.UI;
 
 public class Monsters : MonoBehaviour
 {
     public int monster_id;
     public int currentIndex;
+    public int destinationIndex;
     private InputAction moveAction;
     private bool isMoving = false; // prevent multiple moves at once
     public delegate void MonsterMoved(int index);
     public MonsterMoved onMonsterMoved;
+    public Image monsterImage;
+    public Image backgroundImage;
+    public Image buffsDebuffsImage;
+    public Slider healthBar;
+    public Slider manaBar;
 
     void OnEnable()
     {
         moveAction = new InputAction("Move", InputActionType.Value);
+        onMonsterMoved += movementSubscriber;
 
         // Composite binding for WASD
         moveAction.AddCompositeBinding("2DVector")
@@ -29,18 +37,20 @@ public class Monsters : MonoBehaviour
     void OnDisable()
     {
         moveAction.Disable();
+        onMonsterMoved -= movementSubscriber;
+    }
+
+    void OnDestroy()
+    {
+        moveAction.Disable();
+        onMonsterMoved -= movementSubscriber;
     }
 
     void Start()
     {
-        currentIndex = 0;
+        destinationIndex = currentIndex;
         monster_id = 0; // Assign a unique ID for this monster
         BoardManager.Instance.RegisterMonster(monster_id, this);
-        onMonsterMoved += (index) =>
-        {
-            Debug.Log($"Monster {monster_id} moved to tile {index}");
-            StartCoroutine(LerpToTile(index));
-        };
         transform.position = BoardManager.Instance.tilePrefab[currentIndex].transform.position;
     }
 
@@ -54,6 +64,16 @@ public class Monsters : MonoBehaviour
         else if (input.y < 0) MoveDown();
         else if (input.x < 0) MoveLeft();
         else if (input.x > 0) MoveRight();
+    }
+
+    void OnMouseDown()
+    {
+        BoardManager.currentlyActiveMonster = monster_id;
+    }
+    private void movementSubscriber(int index)
+    {
+        Debug.Log($"Monster {monster_id} moved to tile {index}");
+        StartCoroutine(LerpToTile(index));
     }
 
     private void Move(int index)
@@ -73,9 +93,9 @@ public class Monsters : MonoBehaviour
                 } else return;
             }
 
-            currentIndex += 1;
-            //Move(currentIndex);
-            StartCoroutine(LerpToTile(currentIndex));
+            destinationIndex += 1;
+            //Move(destinationIndex);
+            StartCoroutine(LerpToTile(destinationIndex));
         }
     }
 
@@ -91,9 +111,9 @@ public class Monsters : MonoBehaviour
                     
                 } else return;
             }
-            currentIndex -= 1;
-            //Move(currentIndex);
-            StartCoroutine(LerpToTile(currentIndex));
+            destinationIndex -= 1;
+            //Move(destinationIndex);
+            StartCoroutine(LerpToTile(destinationIndex));
         }
     }
 
@@ -110,9 +130,9 @@ public class Monsters : MonoBehaviour
                 } else return;
             }
 
-            currentIndex -= 7;
-            //Move(currentIndex);
-            StartCoroutine(LerpToTile(currentIndex));
+            destinationIndex -= 7;
+            //Move(destinationIndex);
+            StartCoroutine(LerpToTile(destinationIndex));
         }
     }
 
@@ -129,9 +149,9 @@ public class Monsters : MonoBehaviour
                 } else return;
             }
 
-            currentIndex += 7;
-            //Move(currentIndex);
-            StartCoroutine(LerpToTile(currentIndex));
+            destinationIndex += 7;
+            //Move(destinationIndex);
+            StartCoroutine(LerpToTile(destinationIndex));
         }
     }
 
@@ -152,6 +172,7 @@ public class Monsters : MonoBehaviour
             yield return null;
         }
 
+        currentIndex = index;
         transform.position = targetPos; // snap at end
         isMoving = false;
     }

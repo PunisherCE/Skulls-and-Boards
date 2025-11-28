@@ -1,0 +1,23 @@
+:root {
+}
+
+#MainContainer > #ChatContainer > #ChatRegistry > .unity-collection-view__scroll-view > #unity-content-and-vertical-scroll-container {
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+#ChatText > #unity-text-input {
+    background-color: rgba(0, 0, 0, 0.29);
+    color: rgb(255, 247, 247);
+    font-size: 20px;
+}
+
+.SendButton {
+    background-image: url("project://database/Assets/Sprites/Miscellaneous/send.png?fileID=2800000&guid=a15008ddcbdacf6488c46dbf95843fee&type=3#send");
+    background-color: rgb(255, 255, 255);
+}
+
+.SendButton:hover {
+    background-image: url("project://database/Assets/Sprites/Miscellaneous/send.png?fileID=2800000&guid=a15008ddcbdacf6488c46dbf95843fee&type=3#send");
+    background-color: rgb(255, 255, 255);
+}

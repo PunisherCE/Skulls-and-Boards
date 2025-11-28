@@ -6,7 +6,7 @@ public class BoardManager : MonoBehaviour
 {
     // Static instance accessible globally
     public static BoardManager Instance { get; private set; }
-    public int currentlyActiveMonster = -1;
+    public static int currentlyActiveMonster = -1;
 
     // Your tile prefabs
     public GameObject[] tilePrefab = new GameObject[49];
