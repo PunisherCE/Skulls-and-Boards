@@ -15,7 +15,7 @@ public class ConnectionManager : MonoBehaviour
     {
         socket = new ClientWebSocket();
         cts = new CancellationTokenSource();
-        await socket.ConnectAsync(new Uri("wss://fbb9192efe60.ngrok-free.app/ws"), cts.Token);
+        await socket.ConnectAsync(new Uri("wss://e3757495d076.ngrok-free.app/ws "), cts.Token);
         Debug.Log("WebSocket connected!");
         StartCoroutine(ReceiveLoop());
     }
