@@ -58,9 +58,9 @@ public class InGameChat : MonoBehaviour
         string message = chatInput.value;
         if (string.IsNullOrEmpty(message)) return;
 
-        //ConnectionManager.SendMessage(message);
+        ConnectionManager.SendChatMessage(ConnectionManager.user_id, message);
         chatMessages.RemoveAt(chatMessages.Count - 1);
-        chatMessages.Add(message);
+        chatMessages.Add(ConnectionManager.user_id + ": " + message);
         chatMessages.Add("");
         chatRegistry.RefreshItems();
         chatRegistry.ScrollToItem(chatMessages.Count - 1);

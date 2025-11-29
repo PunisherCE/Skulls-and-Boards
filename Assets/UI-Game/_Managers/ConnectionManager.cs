@@ -9,7 +9,7 @@ public class ConnectionManager : MonoBehaviour
 {
     private static ClientWebSocket socket;
     private static CancellationTokenSource cts;
-    public static string user_id;
+    public static string user_id = "Begone";
 
     private async void Start()
     {
@@ -47,7 +47,7 @@ public class ConnectionManager : MonoBehaviour
             {
                 // Parse as ChatPacket
                 ChatPayload chat = JsonUtility.FromJson<ChatPayload>(message);
-                MenuManager.AddChatMessage(message);
+                MenuManager.AddChatMessage(chat.user_id.ToString(), chat.message);
                 //MenuManager.AddChatMessage(chat.user_id + ": " + chat.message);
             }
             else if (envelope.type == 1)
@@ -75,6 +75,20 @@ public class ConnectionManager : MonoBehaviour
             var encoded = Encoding.UTF8.GetBytes(message);
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
             await socket.SendAsync(buffer, WebSocketMessageType.Text, true, cts.Token);
+        }
+    }
+
+    public static void SendChatMessage(string user_id, string message)
+    {
+        if(socket != null && socket.State == WebSocketState.Open)
+        {
+            ChatPayload payload = new ChatPayload
+            {
+                user_id = int.Parse(user_id),
+                message = message
+            };
+            string jsonMessage = JsonUtility.ToJson(payload);
+            SendMessage(jsonMessage);
         }
     }
     public static void SendMovement(int monster_id, int tileOrigin, int tileDestination, string action)
