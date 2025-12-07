@@ -9,6 +9,7 @@ public class InGameChat : MonoBehaviour
     static ListView chatRegistry;
     Button send;
     static List<string> chatMessages = new List<string>() { "Welcome", "" };
+    public static bool isChatFocused = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,7 +20,10 @@ public class InGameChat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // You can use this boolean to control other game logic.
+        // For example, you might want to disable player movement while the chat is focused.
+        // if (isChatFocused)
+        //    Debug.Log("Chat is focused!");
     }
 
     private void OnEnable()
@@ -40,6 +44,9 @@ public class InGameChat : MonoBehaviour
         };
         chatRegistry.bindItem = (element, i) => (element as Label).text = chatMessages[i];
 
+        // Register callbacks to track the focus state of the chat input field.
+        chatInput.RegisterCallback<FocusInEvent>(evt => isChatFocused = true);
+        chatInput.RegisterCallback<FocusOutEvent>(evt => isChatFocused = false);
 
 
         chatInput.RegisterCallback<KeyUpEvent>(evt =>
@@ -69,5 +76,14 @@ public class InGameChat : MonoBehaviour
             //ConnectionManager.SendMessage(message);
             chatInput.value = string.Empty;
         }
+    }
+
+    public static void AddChatMessage(string user_id, string message)
+    {
+        chatMessages.RemoveAt(chatMessages.Count - 1);
+        chatMessages.Add(user_id + ": " + message);
+        chatMessages.Add("");
+        chatRegistry.RefreshItems();
+        chatRegistry.ScrollToItem(chatMessages.Count - 1);
     }
 }

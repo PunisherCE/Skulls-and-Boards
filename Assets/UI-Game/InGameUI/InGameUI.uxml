@@ -6,7 +6,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="BoardView" style="flex-grow: 1; width: 53.25%; height: 100%;" />
         <ui:VisualElement name="ChatContainer" style="flex-grow: 1; width: 21.5%; height: 100%;">
-            <ui:ListView name="ChatRegistry" class="scroll" style="font-size: 24px; -unity-font-style: bold; color: rgb(255, 255, 255); height: 93%; flex-shrink: 1; min-height: 93%; max-height: 93%; max-width: 100%; flex-grow: 1;" />
+            <ui:ListView name="ChatRegistry" focusable="false" class="scroll" style="font-size: 24px; -unity-font-style: bold; color: rgb(255, 255, 255); height: 93%; flex-shrink: 1; min-height: 93%; max-height: 93%; max-width: 100%; flex-grow: 1;" />
             <ui:VisualElement name="ChatInput" style="flex-grow: 1; height: 7%; flex-direction: row;">
                 <ui:Button name="Send" class="SendButton" style="color: rgb(255, 219, 0); border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; border-left-color: rgb(255, 188, 0); border-right-color: rgb(255, 188, 0); border-top-color: rgb(255, 188, 0); border-bottom-color: rgb(255, 188, 0); width: 40px;" />
                 <ui:TextField placeholder-text="Chat" name="ChatText" max-length="200" style="flex-grow: 0; flex-shrink: 1; max-width: 100%; width: 100%;" />

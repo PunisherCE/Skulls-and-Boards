@@ -11,7 +11,8 @@ public enum AbilityType
     Light, Metal, trap, Heal,
     Buff, Debuff, Wind, Earth,
     Water, Dark, zombie, holy,
-    neutral, legendary, mythical, defense
+    neutral, legendary, mythical, defense,
+    teleportation, summon, transformation
 }
 
 public struct Ability

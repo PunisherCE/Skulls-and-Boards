@@ -10,6 +10,7 @@ public class BoardManager : MonoBehaviour
 
     // Your tile prefabs
     public GameObject[] tilePrefab = new GameObject[49];
+    //public Transform monsterParent; // Canvas or an empty object inside the Canvas
     public Dictionary<int, int> monsterPositions = new Dictionary<int, int>();
     public Dictionary<int, Monsters> monsters = new Dictionary<int, Monsters>();
 

@@ -10,6 +10,7 @@ public class ConnectionManager : MonoBehaviour
     private static ClientWebSocket socket;
     private static CancellationTokenSource cts;
     public static string user_id = "Begone";
+    public static GameObject boardObject;
 
     private async void Start()
     {
@@ -47,7 +48,9 @@ public class ConnectionManager : MonoBehaviour
             {
                 // Parse as ChatPacket
                 ChatPayload chat = JsonUtility.FromJson<ChatPayload>(message);
-                MenuManager.AddChatMessage(chat.user_id.ToString(), chat.message);
+                if (boardObject.activeSelf)
+                    InGameChat.AddChatMessage(chat.user_id, chat.message);
+                else MenuManager.AddChatMessage(chat.user_id, chat.message);
                 //MenuManager.AddChatMessage(chat.user_id + ": " + chat.message);
             }
             else if (envelope.type == 1)
@@ -84,7 +87,7 @@ public class ConnectionManager : MonoBehaviour
         {
             ChatPayload payload = new ChatPayload
             {
-                user_id = int.Parse(user_id),
+                user_id = user_id,
                 message = message
             };
             string jsonMessage = JsonUtility.ToJson(payload);
@@ -119,7 +122,7 @@ public class ConnectionManager : MonoBehaviour
     public class ChatPayload
     {
         public int type = 0;
-        public int user_id;
+        public string user_id;
         public string message;
     }
     [System.Serializable]

@@ -3,21 +3,34 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
+using System;
 
-public class Monsters : MonoBehaviour
+public class Monsters : MonoBehaviour //, IPointerClickHandler
 {
+    [NonSerialized]
     public int monster_id;
+    [NonSerialized]
     public int currentIndex;
-    public int destinationIndex;
     private InputAction moveAction;
     private bool isMoving = false; // prevent multiple moves at once
     public delegate void MonsterMoved(int index);
     public MonsterMoved onMonsterMoved;
     public Image monsterImage;
     public Image backgroundImage;
-    public Image buffsDebuffsImage;
+    public Image [] buffsDebuffsImage = new Image[3];
     public Slider healthBar;
     public Slider manaBar;
+
+    public string[] buffsDebuffs = new string[3];
+
+    private Sprite monsterSpriteToClean;
+    private List<Sprite> buffSpritesToClean = new List<Sprite>();
+    private int buffCount = 0;
+
+
 
     void OnEnable()
     {
@@ -44,19 +57,26 @@ public class Monsters : MonoBehaviour
     {
         moveAction.Disable();
         onMonsterMoved -= movementSubscriber;
+        if (monsterSpriteToClean != null) Addressables.Release(monsterSpriteToClean);
+        foreach (Sprite buffSprite in buffSpritesToClean)
+        {
+            if (buffSprite != null)
+            {
+                Addressables.Release(buffSprite);
+            }
+        }
     }
 
     void Start()
     {
-        destinationIndex = currentIndex;
-        monster_id = 0; // Assign a unique ID for this monster
-        BoardManager.Instance.RegisterMonster(monster_id, this);
-        transform.position = BoardManager.Instance.tilePrefab[currentIndex].transform.position;
+        // The GameManager now handles ID assignment and registration.
     }
 
     void Update()
     {
         if (isMoving) return; // block input while moving
+        if (InGameChat.isChatFocused) return; // block input if chat is focused
+        if (BoardManager.currentlyActiveMonster != monster_id) return;
 
         Vector2 input = moveAction.ReadValue<Vector2>();
 
@@ -66,19 +86,34 @@ public class Monsters : MonoBehaviour
         else if (input.x > 0) MoveRight();
     }
 
-    void OnMouseDown()
+    public void OnSelect()
     {
         BoardManager.currentlyActiveMonster = monster_id;
+        Debug.Log("Left mouse button ('Select') clicked on " + gameObject.name + " (ID: " + monster_id + ")");
     }
+
+    /*
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        BoardManager.currentlyActiveMonster = monster_id;
+        Debug.Log("Selected Monster ID: " + monster_id);
+    }
+
+    public void OnMouseDown()
+    {
+        BoardManager.currentlyActiveMonster = monster_id;
+        Debug.Log("Selected Monster ID: " + monster_id);
+    }
+    */
     private void movementSubscriber(int index)
     {
         Debug.Log($"Monster {monster_id} moved to tile {index}");
         StartCoroutine(LerpToTile(index));
     }
 
-    private void Move(int index)
+    private void Move(int index, string action)
     {
-        ConnectionManager.SendMovement(monster_id, currentIndex, index, "move");
+        //ConnectionManager.SendMovement(monster_id, currentIndex, index, action);
     }
     public void MoveRight()
     {
@@ -89,13 +124,11 @@ public class Monsters : MonoBehaviour
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 1).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    
+                    Move(currentIndex + 1, "move");
                 } else return;
-            }
+            } else Move(currentIndex + 1, "move");
 
-            destinationIndex += 1;
-            //Move(destinationIndex);
-            StartCoroutine(LerpToTile(destinationIndex));
+            StartCoroutine(LerpToTile(currentIndex + 1));
         }
     }
 
@@ -108,12 +141,10 @@ public class Monsters : MonoBehaviour
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 1).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    
+                    Move(currentIndex - 1, "move");
                 } else return;
-            }
-            destinationIndex -= 1;
-            //Move(destinationIndex);
-            StartCoroutine(LerpToTile(destinationIndex));
+            } else Move(currentIndex - 1, "move");
+            StartCoroutine(LerpToTile(currentIndex - 1));
         }
     }
 
@@ -126,13 +157,11 @@ public class Monsters : MonoBehaviour
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 7).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    
+                    Move(currentIndex - 7, "move");
                 } else return;
-            }
+            } else Move(currentIndex - 7, "move");
 
-            destinationIndex -= 7;
-            //Move(destinationIndex);
-            StartCoroutine(LerpToTile(destinationIndex));
+            StartCoroutine(LerpToTile(currentIndex - 7));
         }
     }
 
@@ -145,13 +174,11 @@ public class Monsters : MonoBehaviour
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 7).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    
+                    Move(currentIndex + 7, "move");
                 } else return;
-            }
+            } else Move(currentIndex + 7, "move");
 
-            destinationIndex += 7;
-            //Move(destinationIndex);
-            StartCoroutine(LerpToTile(destinationIndex));
+            StartCoroutine(LerpToTile(currentIndex + 7));
         }
     }
 
@@ -175,5 +202,44 @@ public class Monsters : MonoBehaviour
         currentIndex = index;
         transform.position = targetPos; // snap at end
         isMoving = false;
+    }
+
+    public void SetSprite(string monsterPath, Sprite backgroundSprite)
+    {
+        Sprite newSprite = Addressables.LoadAssetAsync<Sprite>(monsterPath).WaitForCompletion();
+        monsterImage.sprite = newSprite;
+        monsterSpriteToClean = newSprite; // Store the loaded sprite for cleaning up
+        backgroundImage.sprite = backgroundSprite;
+    }
+
+    public void SetBuffsDebuffsSprite(string buffsDebuffsPath, string buffToAdd)
+    {
+        Sprite newBuffsDebuffsSprite = Addressables.LoadAssetAsync<Sprite>(buffsDebuffsPath).WaitForCompletion();
+        buffSpritesToClean.Add(newBuffsDebuffsSprite); // Store the loaded sprite
+        buffCount ++;
+        if(buffCount < 3)
+        {
+            buffsDebuffsImage[buffCount -1].sprite = newBuffsDebuffsSprite;
+            buffsDebuffs[buffCount -1] = buffToAdd;
+            return;
+        } else
+        {
+            buffsDebuffsImage[0].sprite = buffsDebuffsImage[1].sprite;
+            buffsDebuffsImage[1].sprite = buffsDebuffsImage[2].sprite;
+            buffsDebuffsImage[2].sprite = newBuffsDebuffsSprite;   
+            buffsDebuffs[0] = buffsDebuffs[1];
+            buffsDebuffs[1] = buffsDebuffs[2];
+            buffsDebuffs[2] = buffToAdd;         
+        }
+    }
+
+    public void SetHealth(float healthPercent)
+    {
+        healthBar.value = healthPercent;
+    }
+
+    public void SetMana(float manaPercent)
+    {
+        manaBar.value = manaPercent;
     }
 }

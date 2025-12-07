@@ -20,7 +20,7 @@
                     <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 33.33%; height: 100%; flex-shrink: 0.33;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="MenuButtons" style="flex-grow: 0; height: 40%; flex-direction: row; flex-wrap: wrap; padding-bottom: 10px; padding-top: 2px; padding-right: 2px; padding-left: 2px; background-image: url(&quot;project://database/Assets/Sprites/PurpleBase.png?fileID=2800000&amp;guid=9b708ea66d46d2c418feefdbb0f51307&amp;type=3#PurpleBase&quot;); -unity-background-image-tint-color: rgb(111, 107, 107);">
+            <ui:VisualElement name="MenuButtons" style="flex-grow: 0; height: 40%; flex-direction: row; flex-wrap: wrap; padding-bottom: 10px; padding-top: 2px; padding-right: 2px; padding-left: 2px; background-image: url(&quot;project://database/Assets/Sprites/Textures/PurpleBase.png?fileID=2800000&amp;guid=9b708ea66d46d2c418feefdbb0f51307&amp;type=3#PurpleBase&quot;); -unity-background-image-tint-color: rgb(111, 107, 107);">
                 <ui:Button text="SAVE" name="Save" class="menu-buttons" />
                 <ui:Button text="LOAD" name="Load" class="menu-buttons" />
                 <ui:Button text="BACK" name="Back" class="menu-buttons" />
@@ -49,7 +49,7 @@
                 <ui:VisualElement name="Tiles" class="tiles" />
                 <ui:VisualElement name="Tiles" class="tiles" />
             </ui:VisualElement>
-            <ui:VisualElement name="Separator" style="flex-grow: 1; height: 3%; background-image: url(&quot;project://database/Assets/Sprites/PurpleBase.png?fileID=2800000&amp;guid=9b708ea66d46d2c418feefdbb0f51307&amp;type=3#PurpleBase&quot;); background-color: rgb(49, 51, 84); -unity-background-image-tint-color: rgba(255, 255, 255, 0.17);" />
+            <ui:VisualElement name="Separator" style="flex-grow: 1; height: 3%; background-image: url(&quot;project://database/Assets/Sprites/Textures/PurpleBase.png?fileID=2800000&amp;guid=9b708ea66d46d2c418feefdbb0f51307&amp;type=3#PurpleBase&quot;); background-color: rgb(49, 51, 84); -unity-background-image-tint-color: rgba(255, 255, 255, 0.17);" />
             <ui:VisualElement name="UnitsToSelect" style="flex-grow: 1; height: 55%; flex-direction: row;">
                 <ui:ScrollView mode="Horizontal" vertical-scroller-visibility="Hidden" name="ScrollSelector" style="width: 100%; background-color: rgb(149, 149, 149);">
                     <ui:VisualElement style="flex-grow: 1; flex-wrap: wrap;">

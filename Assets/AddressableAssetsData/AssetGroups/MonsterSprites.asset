@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MonsterSprites
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: MonsterSprites
+  m_GUID: 260befb2148fb82428d92660c4f7651e
+  m_SerializeEntries:
+  - m_GUID: 0f71062ff4a9e1d48804814dae828000
+    m_Address: Dragon_1_L
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonsterSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47b444b4480bc3d44801193f381d791f
+    m_Address: Rinoceros_1_U
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonsterSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 859cf6a1b5220344eb29e68c20ef94c3
+    m_Address: Rinoceros_1_L
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonsterSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c32536428eb64804480cb9e7c9557d9c
+    m_Address: Wizzard_1_U
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonsterSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0e0d34f5aa06ab4791b5cb2ab2ab2a1
+    m_Address: Dragon_1_U
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonsterSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f512145c8ff4e8e4db5d19bd9834e7cc
+    m_Address: Wizzard_1_L
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - MonsterSprites
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f8c4f0925a67722439df299ae6803f98, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b5944b166997ba340b214893664dacf4, type: 2}
+    - {fileID: 11400000, guid: d9a8498d1b648ee4bac95dd679112bc6, type: 2}

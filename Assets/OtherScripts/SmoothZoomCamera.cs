@@ -5,7 +5,7 @@ public class SmoothZoomCamera : MonoBehaviour
 {
     public float zoomSpeed = 1f;
     public float moveSpeed = 1f;
-    public float minZoom = 2.5f;
+    public float minZoom = 1f;
     public float maxZoom = 5f;
     public InputAction scrollClickAction;
 
@@ -45,8 +45,11 @@ public class SmoothZoomCamera : MonoBehaviour
             if(cam.orthographicSize >= maxZoom) return;
             targetZoom += 1f;
             targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
-            
-            targetPos = new Vector3(0f, 0f, transform.position.z);
+
+            // Interpolate target position towards the center based on zoom level
+            float zoomRatio = (targetZoom - minZoom) / (maxZoom - minZoom);
+            Vector3 centerPos = new Vector3(0f, 0f, transform.position.z);
+            targetPos = Vector3.Lerp(targetPos, centerPos, zoomRatio);
         }
         if (scrollClickAction.ReadValue<float>() > 0)
         {
