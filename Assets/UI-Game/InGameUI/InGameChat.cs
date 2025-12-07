@@ -45,9 +45,26 @@ public class InGameChat : MonoBehaviour
         chatRegistry.bindItem = (element, i) => (element as Label).text = chatMessages[i];
 
         // Register callbacks to track the focus state of the chat input field.
-        chatInput.RegisterCallback<FocusInEvent>(evt => isChatFocused = true);
-        chatInput.RegisterCallback<FocusOutEvent>(evt => isChatFocused = false);
+        chatInput.RegisterCallback<FocusInEvent>(OnChatFocusIn);
+        chatInput.RegisterCallback<FocusOutEvent>(OnChatFocusOut);
 
+        // --- SOLUTION ---
+        // By default, the TextField is not focusable. This prevents the UI navigation system
+        // from giving it focus when you press 'A' or 'D' for monster movement.
+        chatInput.focusable = false;
+
+        // We only make it focusable when the mouse is over it, so you can click it.
+        chatInput.RegisterCallback<PointerEnterEvent>(e => chatInput.focusable = true);
+        chatInput.RegisterCallback<PointerLeaveEvent>(e => chatInput.focusable = false);
+        
+        // When the chat input is focused, stop keyboard events from propagating to the game.
+        chatInput.RegisterCallback<KeyDownEvent>(evt =>
+        {
+            if (isChatFocused)
+            {
+                evt.StopPropagation();
+            }
+        });
 
         chatInput.RegisterCallback<KeyUpEvent>(evt =>
         {
@@ -60,6 +77,16 @@ public class InGameChat : MonoBehaviour
         });
     }
 
+    private void OnChatFocusIn(FocusInEvent evt)
+    {
+        isChatFocused = true;
+    }
+
+    private void OnChatFocusOut(FocusOutEvent evt)
+    {
+        isChatFocused = false;
+        chatInput.focusable = false; // Make it non-focusable again when we click away
+    }
     private void SendClicked()
     {
         string message = chatInput.value;

@@ -89,22 +89,15 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     public void OnSelect()
     {
         BoardManager.currentlyActiveMonster = monster_id;
+        if (TileInputManager.tileSelected != null)
+        {
+            SpriteRenderer sr = TileInputManager.tileSelected.GetComponent<SpriteRenderer>();
+            sr.color = Color.white;
+            TileInputManager.tileSelected = null;
+        }
         Debug.Log("Left mouse button ('Select') clicked on " + gameObject.name + " (ID: " + monster_id + ")");
     }
 
-    /*
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        BoardManager.currentlyActiveMonster = monster_id;
-        Debug.Log("Selected Monster ID: " + monster_id);
-    }
-
-    public void OnMouseDown()
-    {
-        BoardManager.currentlyActiveMonster = monster_id;
-        Debug.Log("Selected Monster ID: " + monster_id);
-    }
-    */
     private void movementSubscriber(int index)
     {
         Debug.Log($"Monster {monster_id} moved to tile {index}");
@@ -201,6 +194,7 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
 
         currentIndex = index;
         transform.position = targetPos; // snap at end
+        BoardManager.Instance.RegisterPosition(monster_id, index);
         isMoving = false;
     }
 

@@ -1006,18 +1006,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "View",
+                    "name": "Show",
                     "type": "Button",
                     "id": "0059d528-5f44-4367-8a12-beee445e31be",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Camera",
-                    "type": "Button",
-                    "id": "f44be576-9559-4431-9670-dcaafad2441e",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1043,18 +1034,35 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "View",
+                    "action": "Show",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "Tiles",
+            "id": "4b9320b1-4acf-4ada-b88a-9deb28bfe225",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "913998ed-c820-48ba-9cff-200ad1595ad9",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "dd2b09ed-0874-46e5-ad92-0fb79367266e",
-                    "path": "<Mouse>/middleButton",
+                    "id": "147ebe9e-78ce-44ed-8b1f-93ecba2b735e",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Camera",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

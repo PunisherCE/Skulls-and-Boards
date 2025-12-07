@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "Monsters",
+    "maps": [
+        {
+            "name": "Monster",
+            "id": "11fd5dfd-5d46-4f23-978f-3dde94aaccbf",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "2904dced-1f56-44ef-9c74-82a90662fddc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Show",
+                    "type": "Button",
+                    "id": "dfa5f86f-57d3-4047-b824-62fddcfbc689",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "216aca9b-d5eb-48b3-b38d-88c505c3df31",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1f75c095-1046-4aa9-b652-9e250295583c",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Show",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

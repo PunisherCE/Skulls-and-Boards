@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "Tiles",
+    "maps": [
+        {
+            "name": "Tiles",
+            "id": "ec51f3ed-e5dc-486f-aeaf-560bae8d7e03",
+            "actions": [
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "95272e70-edb2-47da-8089-397617be48d2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "142efe06-8856-4b35-95b0-a935c6a293fd",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

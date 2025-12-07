@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1066480102532021145}
   - component: {fileID: 7833837916141357689}
   - component: {fileID: 2450690390942253959}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 278966797094426017}
   - component: {fileID: 2216989616584714618}
   - component: {fileID: 2040142478738737392}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BuffsDebuff3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 2750554599760450648}
   - component: {fileID: 3937570037130411009}
   - component: {fileID: 3520059601001219627}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 2467587710664943098}
   - component: {fileID: 7720058334114590946}
   - component: {fileID: -2981034910736033013}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: MonsterPrefab
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 3771685119209430387}
   - component: {fileID: 9003808261482242638}
   - component: {fileID: 5945644573351182938}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BuffsDebuff2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 6216420253076589651}
   - component: {fileID: 2837308719495066892}
   - component: {fileID: 1760731387552994964}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 7645025867457352457}
   - component: {fileID: 8229228329861812788}
   - component: {fileID: 9114329140346351949}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +621,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2905119925180099868}
   - component: {fileID: 5102239967334258904}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -709,7 +709,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 624664725223269483}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +747,7 @@ GameObject:
   - component: {fileID: 6538643767423419326}
   - component: {fileID: 230205375293443146}
   - component: {fileID: 443187726957617706}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BuffsDebuff1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 8722791128513042396}
   - component: {fileID: 7632234560548783611}
   - component: {fileID: 3045270352745760739}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 3744161085755310466}
   - component: {fileID: 2949446905692540818}
   - component: {fileID: 7291880553193991887}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,7 +974,7 @@ GameObject:
   - component: {fileID: 4079770818528179547}
   - component: {fileID: 2608886266867135084}
   - component: {fileID: 2172303925538828495}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1087,7 +1087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6120962287864535695}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1124,7 +1124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 359244151507394145}
   - component: {fileID: 6634504547615569258}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Mana
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -45,6 +45,17 @@ public class BoardManager : MonoBehaviour
             monsters.Add(id, unit);
     }
 
+    public void RegisterPosition(int monsterId, int tileIndex)
+    {
+        if (monsterPositions.ContainsKey(monsterId))
+        {
+            monsterPositions[monsterId] = tileIndex;
+        }
+        else
+        {
+            monsterPositions.Add(monsterId, tileIndex);
+        }
+    }
     public Monsters GetMonster(int id)
     {
         monsters.TryGetValue(id, out Monsters unit);

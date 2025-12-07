@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
             monster.transform.position = BoardManager.Instance.tilePrefab[tilePositionIndex].transform.position;
             monster.transform.rotation = Quaternion.Euler(0, 0, 180);
             BoardManager.Instance.RegisterMonster(monsterComponent.monster_id, monsterComponent);
+            BoardManager.Instance.RegisterPosition(monsterComponent.monster_id, tilePositionIndex);
             monsterComponent.SetSprite(entry.Value, redBackgroundSprite);
             monsterID++;
             Debug.Log("Red Team Monster ID: " + entry.Key + ", Name: " + entry.Value);
