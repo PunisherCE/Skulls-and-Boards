@@ -16,19 +16,31 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     public int currentIndex;
     private InputAction moveAction;
     private bool isMoving = false; // prevent multiple moves at once
+
     public delegate void MonsterMoved(int index);
+
     public MonsterMoved onMonsterMoved;
     public Image monsterImage;
     public Image backgroundImage;
-    public Image [] buffsDebuffsImage = new Image[3];
     public Slider healthBar;
     public Slider manaBar;
 
+    [NonSerialized]
     public string[] buffsDebuffs = new string[3];
+    private Image [] buffsDebuffsImage = new Image[3];
 
     private Sprite monsterSpriteToClean;
     private List<Sprite> buffSpritesToClean = new List<Sprite>();
     private int buffCount = 0;
+
+    [NonSerialized]
+    public Monster monsterData;
+    [NonSerialized]
+    public int health;
+    [NonSerialized]
+    public int mana;
+    [NonSerialized]
+    public int damage;
 
 
 
@@ -69,7 +81,9 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
 
     void Start()
     {
-        // The GameManager now handles ID assignment and registration.
+        // 0 if full 1 is empty.
+        SetHealth(0f);
+        SetMana(0f);
     }
 
     void Update()
@@ -98,6 +112,10 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         Debug.Log("Left mouse button ('Select') clicked on " + gameObject.name + " (ID: " + monster_id + ")");
     }
 
+    public void OnShow()
+    {
+        InGameChat.ShowMonsterCard(monsterData);
+    }
     private void movementSubscriber(int index)
     {
         Debug.Log($"Monster {monster_id} moved to tile {index}");
@@ -117,8 +135,14 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 1).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    Move(currentIndex + 1, "move");
-                } else return;
+                    Move(currentIndex + 1, "attack");
+                }
+                else
+                {
+                    Console.WriteLine("Cannot move onto a tile occupied by an ally.");
+                    return;
+                } 
+                    
             } else Move(currentIndex + 1, "move");
 
             StartCoroutine(LerpToTile(currentIndex + 1));
@@ -211,7 +235,7 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         Sprite newBuffsDebuffsSprite = Addressables.LoadAssetAsync<Sprite>(buffsDebuffsPath).WaitForCompletion();
         buffSpritesToClean.Add(newBuffsDebuffsSprite); // Store the loaded sprite
         buffCount ++;
-        if(buffCount < 3)
+        if(buffCount <= 3)
         {
             buffsDebuffsImage[buffCount -1].sprite = newBuffsDebuffsSprite;
             buffsDebuffs[buffCount -1] = buffToAdd;

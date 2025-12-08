@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI-Game/InGameUI/InGameUIStyles.uss?fileID=7433441132597879392&amp;guid=226f279f51a67d244ae8ecbf1f9a0727&amp;type=3#InGameUIStyles" />
     <ui:VisualElement name="MainContainer" style="flex-grow: 1; flex-direction: row;">
         <ui:VisualElement name="MonsterSelect" style="flex-grow: 1; width: 21.5%; height: 100%;">
-            <ui:VisualElement name="MonsterCard" style="flex-grow: 1;" />
+            <ui:VisualElement name="MonsterCard" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.32);" />
         </ui:VisualElement>
         <ui:VisualElement name="BoardView" style="flex-grow: 1; width: 53.25%; height: 100%;" />
         <ui:VisualElement name="ChatContainer" style="flex-grow: 1; width: 21.5%; height: 100%;">

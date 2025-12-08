@@ -297,16 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Monsters
   monsterImage: {fileID: 3937570037130411009}
   backgroundImage: {fileID: 4079770818528179547}
-  buffsDebuffsImage:
-  - {fileID: 443187726957617706}
-  - {fileID: 5945644573351182938}
-  - {fileID: 2040142478738737392}
   healthBar: {fileID: 5102239967334258904}
   manaBar: {fileID: 6634504547615569258}
-  buffsDebuffs:
-  - 
-  - 
-  - 
 --- !u!61 &-2981034910736033013
 BoxCollider2D:
   m_ObjectHideFlags: 0

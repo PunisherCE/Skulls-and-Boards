@@ -5,9 +5,10 @@ using UnityEngine.UIElements;
 public class InGameChat : MonoBehaviour
 {
 
+    public static VisualElement monsterCard;
     TextField chatInput;
-    static ListView chatRegistry;
     Button send;
+    static ListView chatRegistry;
     static List<string> chatMessages = new List<string>() { "Welcome", "" };
     public static bool isChatFocused = false;
 
@@ -29,6 +30,7 @@ public class InGameChat : MonoBehaviour
     private void OnEnable()
     {
         VisualElement root = GetComponent<UIDocument>().rootVisualElement;
+        monsterCard = root.Q<VisualElement>("MonsterCard");
         chatInput = root.Q<TextField>("ChatText");
         send = root.Q<Button>("Send");
         send.clicked += SendClicked;
@@ -112,5 +114,11 @@ public class InGameChat : MonoBehaviour
         chatMessages.Add("");
         chatRegistry.RefreshItems();
         chatRegistry.ScrollToItem(chatMessages.Count - 1);
+    }
+
+    public static void ShowMonsterCard(Monster monster)
+    {
+        // implement showing monster info in the card
+        monsterCard.style.display = DisplayStyle.Flex;    
     }
 }
