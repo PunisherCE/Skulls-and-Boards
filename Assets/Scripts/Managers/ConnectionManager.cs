@@ -60,6 +60,22 @@ public class ConnectionManager : MonoBehaviour
                 Monsters monster = BoardManager.Instance.GetMonster(movement.monster_id);
                 if (monster != null && movement.success)
                 {
+                    //testing destroy monster
+                    if(movement.action == ActionType.Attack)
+                    {
+                        if(BoardManager.Instance.monsterPositions.TryGetValue(movement.tile_destination, out int key))
+                        {
+                            if(BoardManager.Instance.monsters.TryGetValue(key, out Monsters targetMonster))
+                            {
+                                Debug.Log($"Monster {targetMonster.monster_id} has been destroyed!");
+                                BoardManager.Instance.monsters.Remove(targetMonster.monster_id);
+                                BoardManager.Instance.monsterPositions.Remove(targetMonster.monster_id);
+                                Destroy(targetMonster.gameObject);
+                            }
+                        }
+                    }
+                    //end testing destroy monster
+
                     monster.currentIndex = movement.tile_destination;
                     monster.transform.position = BoardManager.Instance.tilePrefab[monster.currentIndex].transform.position;
                     monster.onMonsterMoved?.Invoke(monster.currentIndex);
@@ -94,7 +110,7 @@ public class ConnectionManager : MonoBehaviour
             SendMessage(jsonMessage);
         }
     }
-    public static void SendMovement(int monster_id, int tileOrigin, int tileDestination, string action)
+    public static void SendMovement(int monster_id, int tileOrigin, int tileDestination, ActionType action)
     {
         if(socket != null && socket.State == WebSocketState.Open)
         {
@@ -132,9 +148,10 @@ public class ConnectionManager : MonoBehaviour
         public int monster_id;
         public int tile_origin;
         public int tile_destination;
-        public string action;
+        public ActionType action;
         public bool success;
     }
-
     //Receivable payloads
 }
+
+

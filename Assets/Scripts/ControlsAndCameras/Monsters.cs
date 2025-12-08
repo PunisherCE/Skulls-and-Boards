@@ -122,7 +122,7 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         StartCoroutine(LerpToTile(index));
     }
 
-    private void Move(int index, string action)
+    private void Move(int index, ActionType action)
     {
         //ConnectionManager.SendMovement(monster_id, currentIndex, index, action);
     }
@@ -135,7 +135,9 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 1).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    Move(currentIndex + 1, "attack");
+                    Move(currentIndex + 1, ActionType.Attack);
+                    Console.WriteLine("Attacking enemy monster!");
+                    return;
                 }
                 else
                 {
@@ -143,7 +145,7 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                     return;
                 } 
                     
-            } else Move(currentIndex + 1, "move");
+            } else Move(currentIndex + 1, ActionType.Move);
 
             StartCoroutine(LerpToTile(currentIndex + 1));
         }
@@ -158,9 +160,15 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 1).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    Move(currentIndex - 1, "move");
-                } else return;
-            } else Move(currentIndex - 1, "move");
+                    Move(currentIndex - 1, ActionType.Attack);
+                    Console.WriteLine("Attacking enemy monster!");
+                    return;
+                } else
+                {
+                    Console.WriteLine("Cannot move onto a tile occupied by an ally.");
+                    return;
+                }
+            } else Move(currentIndex - 1, ActionType.Move);
             StartCoroutine(LerpToTile(currentIndex - 1));
         }
     }
@@ -174,9 +182,15 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 7).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    Move(currentIndex - 7, "move");
-                } else return;
-            } else Move(currentIndex - 7, "move");
+                    Move(currentIndex - 7, ActionType.Attack);
+                    Console.WriteLine("Attacking enemy monster!");
+                    return;
+                } else
+                {
+                    Console.WriteLine("Cannot move onto a tile occupied by an ally.");
+                    return;
+                }
+            } else Move(currentIndex - 7, ActionType.Move);
 
             StartCoroutine(LerpToTile(currentIndex - 7));
         }
@@ -191,9 +205,15 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 7).Key;
                 if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
                 {
-                    Move(currentIndex + 7, "move");
-                } else return;
-            } else Move(currentIndex + 7, "move");
+                    Move(currentIndex + 7, ActionType.Attack);
+                    Console.WriteLine("Attacking enemy monster!");
+                    return;
+                } else
+                {
+                    Console.WriteLine("Cannot move onto a tile occupied by an ally.");
+                    return;
+                }
+            } else Move(currentIndex + 7, ActionType.Move);
 
             StartCoroutine(LerpToTile(currentIndex + 7));
         }
