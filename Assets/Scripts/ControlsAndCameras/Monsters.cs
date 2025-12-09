@@ -15,6 +15,7 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     [NonSerialized]
     public int currentIndex;
     private InputAction moveAction;
+
     private bool isMoving = false; // prevent multiple moves at once
 
     public delegate void MonsterMoved(int index);
@@ -24,10 +25,11 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     public Image backgroundImage;
     public Slider healthBar;
     public Slider manaBar;
+    public Image mask;
 
     [NonSerialized]
-    public string[] buffsDebuffs = new string[3];
-    private Image [] buffsDebuffsImage = new Image[3];
+    public string[] buffsDebuffs = new string[9];
+    public Image [] buffsDebuffsImage = new Image[9];
 
     private Sprite monsterSpriteToClean;
     private List<Sprite> buffSpritesToClean = new List<Sprite>();
@@ -91,17 +93,22 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         if (isMoving) return; // block input while moving
         if (InGameChat.isChatFocused) return; // block input if chat is focused
         if (BoardManager.currentlyActiveMonster != monster_id) return;
+        if (GameManager.Instance.alreadyMoved[monster_id]) return;
 
-        Vector2 input = moveAction.ReadValue<Vector2>();
-
-        if (input.y > 0) MoveUp();
-        else if (input.y < 0) MoveDown();
-        else if (input.x < 0) MoveLeft();
-        else if (input.x > 0) MoveRight();
+        // Use wasPressedThisFrame to ensure actions are triggered only once per key press
+        if (Keyboard.current != null)
+        {
+            if (Keyboard.current.wKey.wasPressedThisFrame) { MoveUp(); return; }
+            if (Keyboard.current.sKey.wasPressedThisFrame) { MoveDown(); return; }
+            if (Keyboard.current.aKey.wasPressedThisFrame) { MoveLeft(); return; }
+            if (Keyboard.current.dKey.wasPressedThisFrame) { MoveRight(); return; }
+        }
     }
 
     public void OnSelect()
     {
+        // If this monster is already the active monster, do nothing.
+        if (BoardManager.currentlyActiveMonster == monster_id) return;
         BoardManager.currentlyActiveMonster = monster_id;
         if (TileInputManager.tileSelected != null)
         {
@@ -122,107 +129,142 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         StartCoroutine(LerpToTile(index));
     }
 
-    private void Move(int index, ActionType action)
+    private void SendActionToServer(int targetIndex, ActionType action)
     {
-        //ConnectionManager.SendMovement(monster_id, currentIndex, index, action);
+        // This is intentionally commented out for client-side testing as per your request.
+        // ConnectionManager.SendMovement(monster_id, currentIndex, targetIndex, action);
     }
     public void MoveRight()
     {
         if (currentIndex % 7 != 6)
         {
-            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex + 1))
+            int targetIndex = currentIndex + 1;
+            if (BoardManager.Instance.monsterPositions.ContainsValue(targetIndex))
             {
-                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 1).Key;
-                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                Debug.Log("There is a monster in that tile");
+                int keyOfMonsterAtTarget = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == targetIndex).Key;
+                if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
-                    Move(currentIndex + 1, ActionType.Attack);
                     Console.WriteLine("Attacking enemy monster!");
-                    return;
-                }
-                else
-                {
+                    AlreadyMoved();
+                    SendActionToServer(targetIndex, ActionType.Attack);
+                    DestructionTesting(targetIndex);
+                } else {
                     Console.WriteLine("Cannot move onto a tile occupied by an ally.");
-                    return;
-                } 
-                    
-            } else Move(currentIndex + 1, ActionType.Move);
-
-            StartCoroutine(LerpToTile(currentIndex + 1));
+                }
+                return; // Prevent movement if tile is occupied
+            }
+            // If no monster in target tile, then move
+            SendActionToServer(targetIndex, ActionType.Move);
+            StartCoroutine(LerpToTile(targetIndex));
         }
     }
 
     public void MoveLeft()
     {
         if (currentIndex % 7 != 0)
-        {
-            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex - 1))
+        {   
+            int targetIndex = currentIndex - 1;
+            if (BoardManager.Instance.monsterPositions.ContainsValue(targetIndex))
             {
-                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 1).Key;
-                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                Debug.Log("There is a monster in that tile");
+                int keyOfMonsterAtTarget = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == targetIndex).Key;
+                if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
-                    Move(currentIndex - 1, ActionType.Attack);
                     Console.WriteLine("Attacking enemy monster!");
-                    return;
-                } else
-                {
+                    AlreadyMoved();
+                    SendActionToServer(targetIndex, ActionType.Attack);
+                    DestructionTesting(targetIndex);
+                } else {
                     Console.WriteLine("Cannot move onto a tile occupied by an ally.");
-                    return;
                 }
-            } else Move(currentIndex - 1, ActionType.Move);
-            StartCoroutine(LerpToTile(currentIndex - 1));
+                return; // Prevent movement if tile is occupied
+            }
+            // If no monster in target tile, then move
+            SendActionToServer(targetIndex, ActionType.Move);
+            StartCoroutine(LerpToTile(targetIndex));
         }
     }
 
     public void MoveUp()
     {
         if (currentIndex >= 7)
-        {
-            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex - 7))
+        {   
+            int targetIndex = currentIndex - 7;
+            if (BoardManager.Instance.monsterPositions.ContainsValue(targetIndex))
             {
-                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex - 7).Key;
-                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                Debug.Log("There is a monster in that tile");
+                int keyOfMonsterAtTarget = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == targetIndex).Key;
+                if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
-                    Move(currentIndex - 7, ActionType.Attack);
                     Console.WriteLine("Attacking enemy monster!");
-                    return;
-                } else
-                {
+                    AlreadyMoved();
+                    SendActionToServer(targetIndex, ActionType.Attack);
+                    DestructionTesting(targetIndex);
+                } else {
                     Console.WriteLine("Cannot move onto a tile occupied by an ally.");
-                    return;
                 }
-            } else Move(currentIndex - 7, ActionType.Move);
-
-            StartCoroutine(LerpToTile(currentIndex - 7));
+                return; // Prevent movement if tile is occupied
+            }
+            // If no monster in target tile, then move
+            SendActionToServer(targetIndex, ActionType.Move);
+            StartCoroutine(LerpToTile(targetIndex));
         }
     }
 
     public void MoveDown()
     {
         if (currentIndex < 42)
-        {
-            if (BoardManager.Instance.monsterPositions.ContainsValue(currentIndex + 7))
+        {   
+            int targetIndex = currentIndex + 7;
+            if (BoardManager.Instance.monsterPositions.ContainsValue(targetIndex))
             {
-                int keyOfMonster = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == currentIndex + 7).Key;
-                if((monster_id < 24 && keyOfMonster >= 24) || (monster_id >= 24 && keyOfMonster < 24))
+                Debug.Log("There is a monster in that tile");
+                int keyOfMonsterAtTarget = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == targetIndex).Key;
+                if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
-                    Move(currentIndex + 7, ActionType.Attack);
                     Console.WriteLine("Attacking enemy monster!");
-                    return;
-                } else
-                {
+                    AlreadyMoved();
+                    SendActionToServer(targetIndex, ActionType.Attack);
+                    DestructionTesting(targetIndex);
+                } else {
                     Console.WriteLine("Cannot move onto a tile occupied by an ally.");
-                    return;
                 }
-            } else Move(currentIndex + 7, ActionType.Move);
-
-            StartCoroutine(LerpToTile(currentIndex + 7));
+                return; // Prevent movement if tile is occupied
+            }
+            // If no monster in target tile, then move
+            SendActionToServer(targetIndex, ActionType.Move);
+            StartCoroutine(LerpToTile(targetIndex));
         }
     }
 
+    private void DestructionTesting(int indexTo)
+    {
+        int key = BoardManager.Instance.monsterPositions.FirstOrDefault(x => x.Value == indexTo).Key;
+        {
+            if(BoardManager.Instance.monsters.TryGetValue(key, out Monsters targetMonster))
+            {
+                Debug.Log($"Monster {targetMonster.monster_id} has been destroyed!");
+                BoardManager.Instance.monsters.Remove(targetMonster.monster_id);
+                BoardManager.Instance.monsterPositions.Remove(targetMonster.monster_id);
+                Destroy(targetMonster.gameObject);
+            }
+        }
+    }
+    
+    private void AlreadyMoved()
+    {
+        GameManager.Instance.alreadyMoved[monster_id] = true;
+        mask.color = new Color(0f, 0f, 0f, 0.8f);
+    }
+    public void RevertColor()
+    {
+        mask.color = new Color(1f, 1f, 1f, 0.0f);
+    }
     private IEnumerator LerpToTile(int index)
     {
         isMoving = true;
-
+        AlreadyMoved();
         Vector3 startPos = transform.position;
         Vector3 targetPos = BoardManager.Instance.tilePrefab[index].transform.position;
 
@@ -255,7 +297,7 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         Sprite newBuffsDebuffsSprite = Addressables.LoadAssetAsync<Sprite>(buffsDebuffsPath).WaitForCompletion();
         buffSpritesToClean.Add(newBuffsDebuffsSprite); // Store the loaded sprite
         buffCount ++;
-        if(buffCount <= 3)
+        if(buffCount <= 9)
         {
             buffsDebuffsImage[buffCount -1].sprite = newBuffsDebuffsSprite;
             buffsDebuffs[buffCount -1] = buffToAdd;
@@ -264,10 +306,22 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         {
             buffsDebuffsImage[0].sprite = buffsDebuffsImage[1].sprite;
             buffsDebuffsImage[1].sprite = buffsDebuffsImage[2].sprite;
-            buffsDebuffsImage[2].sprite = newBuffsDebuffsSprite;   
+            buffsDebuffsImage[2].sprite = buffsDebuffsImage[3].sprite;
+            buffsDebuffsImage[3].sprite = buffsDebuffsImage[4].sprite;
+            buffsDebuffsImage[4].sprite = buffsDebuffsImage[5].sprite;
+            buffsDebuffsImage[5].sprite = buffsDebuffsImage[6].sprite;
+            buffsDebuffsImage[6].sprite = buffsDebuffsImage[7].sprite;
+            buffsDebuffsImage[7].sprite = buffsDebuffsImage[8].sprite;
+            buffsDebuffsImage[8].sprite = newBuffsDebuffsSprite;   
             buffsDebuffs[0] = buffsDebuffs[1];
             buffsDebuffs[1] = buffsDebuffs[2];
-            buffsDebuffs[2] = buffToAdd;         
+            buffsDebuffs[2] = buffsDebuffs[3];
+            buffsDebuffs[3] = buffsDebuffs[4];
+            buffsDebuffs[4] = buffsDebuffs[5];
+            buffsDebuffs[5] = buffsDebuffs[6];
+            buffsDebuffs[6] = buffsDebuffs[7];
+            buffsDebuffs[7] = buffsDebuffs[8];
+            buffsDebuffs[8] = buffToAdd;         
         }
     }
 

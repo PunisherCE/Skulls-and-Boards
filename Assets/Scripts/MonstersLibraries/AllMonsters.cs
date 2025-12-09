@@ -36,9 +36,10 @@ public struct Monster
     public Ability ability1;
     public Ability ability2;
     public Ability ability3;
+    public Ability ability4;
 
     public Monster(string name, int health, int mana, int damage, ColorType colorType,
-                   Ability ability1, Ability ability2, Ability ability3)
+                   Ability ability1, Ability ability2, Ability ability3, Ability ability4)
     {
         this.name = name;
         this.health = health;
@@ -48,6 +49,7 @@ public struct Monster
         this.ability1 = ability1;
         this.ability2 = ability2;
         this.ability3 = ability3;
+        this.ability4 = ability4;
     }
 
 };

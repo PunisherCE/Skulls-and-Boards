@@ -1,9 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI-Game/DeckManager/DeckStylesheet.uss?fileID=7433441132597879392&amp;guid=ef406ef705cc25c4b9ee294f1997439c&amp;type=3#DeckStylesheet" />
     <ui:VisualElement name="MainContainer" style="flex-grow: 1; flex-direction: row;">
-        <ui:VisualElement name="Menu" style="flex-grow: 1; width: 30%;">
+        <ui:VisualElement name="Menu" style="flex-grow: 1; width: 32%;">
             <ui:VisualElement name="MonsterCard" style="flex-grow: 1; height: 60%;">
-                <ui:VisualElement name="Card" style="flex-grow: 1; height: 70%; flex-direction: row;">
+                <ui:VisualElement name="Card" style="flex-grow: 1; height: 75%; flex-direction: row;">
                     <ui:VisualElement name="Image" style="flex-grow: 1; width: 75%;" />
                     <ui:VisualElement name="Bars" style="flex-grow: 1; width: 25%; flex-direction: row;">
                         <ui:VisualElement name="Health" style="flex-grow: 1; width: 50%; height: 100%; background-color: rgb(113, 113, 113); border-top-width: 2px; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
@@ -14,10 +14,11 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="AbilitiesContainer" style="flex-grow: 1; height: 30%; flex-direction: row;">
-                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 33.33%; height: 100%; flex-shrink: 0.33;" />
-                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 33.33%; height: 100%; flex-shrink: 0.33;" />
-                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 33.33%; height: 100%; flex-shrink: 0.33;" />
+                <ui:VisualElement name="AbilitiesContainer" style="flex-grow: 1; height: 25%; flex-direction: row;">
+                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 25%; height: 100%; flex-shrink: 0.33;" />
+                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 25%; height: 100%; flex-shrink: 0.33;" />
+                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 25%; height: 100%; flex-shrink: 0.33;" />
+                    <ui:VisualElement name="Ability" class="abilities" style="flex-grow: 1; width: 25%; height: 100%; flex-shrink: 0.33;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="MenuButtons" style="flex-grow: 0; height: 40%; flex-direction: row; flex-wrap: wrap; padding-bottom: 10px; padding-top: 2px; padding-right: 2px; padding-left: 2px; background-image: url(&quot;project://database/Assets/Sprites/Textures/PurpleBase.png?fileID=2800000&amp;guid=9b708ea66d46d2c418feefdbb0f51307&amp;type=3#PurpleBase&quot;); -unity-background-image-tint-color: rgb(111, 107, 107);">
@@ -27,7 +28,7 @@
                 <ui:Button text="RESET" name="Reset" class="menu-buttons" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="Selection" style="flex-grow: 1; width: 70%;">
+        <ui:VisualElement name="Selection" style="flex-grow: 1; width: 68%;">
             <ui:VisualElement name="DeckInfo" style="flex-grow: 1; height: 7%; background-color: rgb(38, 40, 75); flex-direction: row; border-bottom-width: 2px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 2px; border-right-width: 2px; border-left-width: 2px;">
                 <ui:Label text="My Deck" name="DeckName" style="width: 70%; color: rgb(255, 255, 255); font-size: 25px; -unity-font-style: bold; -unity-text-align: middle-center;" />
                 <ui:Label text="  DC:" name="DC" style="width: 10%; font-size: 25px; -unity-font-style: bold-and-italic; color: rgb(255, 255, 255); border-left-width: 3px; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); -unity-text-align: middle-left;" />

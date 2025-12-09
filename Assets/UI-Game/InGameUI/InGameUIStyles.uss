@@ -10,6 +10,10 @@
     background-color: rgba(0, 0, 0, 0.29);
     color: rgb(255, 247, 247);
     font-size: 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .SendButton {
@@ -20,4 +24,15 @@
 .SendButton:hover {
     background-image: url("project://database/Assets/Sprites/Miscellaneous/send.png?fileID=2800000&guid=a15008ddcbdacf6488c46dbf95843fee&type=3#send");
     background-color: rgb(255, 255, 255);
+}
+
+.Borders {
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
 }
