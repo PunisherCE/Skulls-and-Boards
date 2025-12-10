@@ -5961,7 +5961,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1291324076}
   - component: {fileID: 1291324077}
-  - component: {fileID: 1291324078}
   m_Layer: 0
   m_Name: Frame
   m_TagString: Untagged
@@ -6042,18 +6041,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1291324078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1291324075}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b63a514d8d8438f4b8deda6497604eaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestOnMouse
 --- !u!1 &1295275007
 GameObject:
   m_ObjectHideFlags: 0
