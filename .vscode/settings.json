@@ -67,5 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Skulls-and-Boards.slnx"
+    "dotnet.defaultSolution": "Skulls And Boards.slnx"
 }

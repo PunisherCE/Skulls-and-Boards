@@ -7,6 +7,7 @@ using UnityEngine.AddressableAssets;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Monsters : MonoBehaviour //, IPointerClickHandler
 {
@@ -14,6 +15,8 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     public int monster_id;
     [NonSerialized]
     public int currentIndex;
+    [NonSerialized]
+    public int numberOfMoves = 0;
     private InputAction moveAction;
 
     private bool isMoving = false; // prevent multiple moves at once
@@ -28,11 +31,14 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     public Image mask;
 
     [NonSerialized]
-    public string[] buffsDebuffs = new string[9];
-    public Image [] buffsDebuffsImage = new Image[9];
+    //public string[] buffsDebuffs = new string[9];
+    public List<string> buffDebuffNames = new List<string>();
+    public List<Sprite> buffsDebuffsImage = new List<Sprite>();
 
-    private Sprite monsterSpriteToClean;
-    private List<Sprite> buffSpritesToClean = new List<Sprite>();
+    public Sprite monsterSprite;
+    private AsyncOperationHandle<Sprite> monsterSpriteHandle;
+    private Dictionary<string, AsyncOperationHandle<Sprite>> buffSpriteHandles = new();
+
     private int buffCount = 0;
 
     [NonSerialized]
@@ -68,18 +74,26 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     }
 
     void OnDestroy()
+{
+    // Disable input and unsubscribe
+    moveAction.Disable();
+    onMonsterMoved -= movementSubscriber;
+
+    // Release monster sprite handle if valid
+    if (monsterSpriteHandle.IsValid())
+        Addressables.Release(monsterSpriteHandle);
+
+    // Release all buff/debuff sprite handles
+    foreach (var kvp in buffSpriteHandles)
     {
-        moveAction.Disable();
-        onMonsterMoved -= movementSubscriber;
-        if (monsterSpriteToClean != null) Addressables.Release(monsterSpriteToClean);
-        foreach (Sprite buffSprite in buffSpritesToClean)
-        {
-            if (buffSprite != null)
-            {
-                Addressables.Release(buffSprite);
-            }
-        }
+        var handle = kvp.Value;
+        if (handle.IsValid())
+            Addressables.Release(handle);
     }
+
+    // Clear dictionary to avoid dangling references
+    buffSpriteHandles.Clear();
+}
 
     void Start()
     {
@@ -94,6 +108,8 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         if (InGameChat.isChatFocused) return; // block input if chat is focused
         if (BoardManager.currentlyActiveMonster != monster_id) return;
         if (GameManager.Instance.alreadyMoved[monster_id]) return;
+        if (BoardManager.redTurn && monster_id >= 24) return;
+        if (!BoardManager.redTurn && monster_id < 24) return;
 
         // Use wasPressedThisFrame to ensure actions are triggered only once per key press
         if (Keyboard.current != null)
@@ -146,7 +162,6 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
                     Console.WriteLine("Attacking enemy monster!");
-                    AlreadyMoved();
                     SendActionToServer(targetIndex, ActionType.Attack);
                     DestructionTesting(targetIndex);
                 } else {
@@ -172,7 +187,6 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
                     Console.WriteLine("Attacking enemy monster!");
-                    AlreadyMoved();
                     SendActionToServer(targetIndex, ActionType.Attack);
                     DestructionTesting(targetIndex);
                 } else {
@@ -198,7 +212,6 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
                     Console.WriteLine("Attacking enemy monster!");
-                    AlreadyMoved();
                     SendActionToServer(targetIndex, ActionType.Attack);
                     DestructionTesting(targetIndex);
                 } else {
@@ -224,7 +237,6 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
                 if((monster_id < 24 && keyOfMonsterAtTarget >= 24) || (monster_id >= 24 && keyOfMonsterAtTarget < 24))
                 {
                     Console.WriteLine("Attacking enemy monster!");
-                    AlreadyMoved();
                     SendActionToServer(targetIndex, ActionType.Attack);
                     DestructionTesting(targetIndex);
                 } else {
@@ -254,8 +266,11 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     
     private void AlreadyMoved()
     {
-        GameManager.Instance.alreadyMoved[monster_id] = true;
-        mask.color = new Color(0f, 0f, 0f, 0.8f);
+        if (numberOfMoves > 1)
+        {
+            GameManager.Instance.alreadyMoved[monster_id] = true;      
+            mask.color = new Color(0f, 0f, 0f, 0.8f);            
+        }
     }
     public void RevertColor()
     {
@@ -264,6 +279,12 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
     private IEnumerator LerpToTile(int index)
     {
         isMoving = true;
+        numberOfMoves++;
+        if(monster_id < 24)
+            BoardManager.movedRed++;
+        else
+            BoardManager.movedBlue++;
+
         AlreadyMoved();
         Vector3 startPos = transform.position;
         Vector3 targetPos = BoardManager.Instance.tilePrefab[index].transform.position;
@@ -282,47 +303,65 @@ public class Monsters : MonoBehaviour //, IPointerClickHandler
         transform.position = targetPos; // snap at end
         BoardManager.Instance.RegisterPosition(monster_id, index);
         isMoving = false;
+        if ((monster_id < 24 && BoardManager.movedRed >= BoardManager.numberOfMoves) || (monster_id >= 24 && BoardManager.movedBlue >= BoardManager.numberOfMoves))
+        {
+            BoardManager.redTurn = !BoardManager.redTurn;
+            BoardManager.movedRed = 0;
+            BoardManager.movedBlue = 0;
+            GameManager.Instance.ResetMoves();
+        }
     }
 
     public void SetSprite(string monsterPath, Sprite backgroundSprite)
     {
-        Sprite newSprite = Addressables.LoadAssetAsync<Sprite>(monsterPath).WaitForCompletion();
+        // Load the sprite via Addressables and keep the handle
+        monsterSpriteHandle = Addressables.LoadAssetAsync<Sprite>(monsterPath);
+
+        // Wait for completion to get the actual Sprite
+        Sprite newSprite = monsterSpriteHandle.WaitForCompletion();
+        monsterSprite = newSprite;
+
+        // Assign to your UI
         monsterImage.sprite = newSprite;
-        monsterSpriteToClean = newSprite; // Store the loaded sprite for cleaning up
         backgroundImage.sprite = backgroundSprite;
     }
 
     public void SetBuffsDebuffsSprite(string buffsDebuffsPath, string buffToAdd)
     {
-        Sprite newBuffsDebuffsSprite = Addressables.LoadAssetAsync<Sprite>(buffsDebuffsPath).WaitForCompletion();
-        buffSpritesToClean.Add(newBuffsDebuffsSprite); // Store the loaded sprite
+        if(buffDebuffNames.Contains(buffToAdd))
+        {
+            // Already have this buff/debuff, do not add again
+            return;
+        }
+        
+        AsyncOperationHandle<Sprite> handle = Addressables.LoadAssetAsync<Sprite>(buffsDebuffsPath);
+        buffSpriteHandles[buffToAdd] = handle;
+        //buffSpriteHandlesToClean.Add(handle);
+        Sprite newBuffsDebuffsSprite = handle.Result;
         buffCount ++;
         if(buffCount <= 9)
         {
-            buffsDebuffsImage[buffCount -1].sprite = newBuffsDebuffsSprite;
-            buffsDebuffs[buffCount -1] = buffToAdd;
-            return;
+            buffsDebuffsImage[buffCount -1] = newBuffsDebuffsSprite;
+            buffDebuffNames.Add(buffToAdd);
+            //buffsDebuffs[buffCount -1] = buffToAdd;
         } else
         {
-            buffsDebuffsImage[0].sprite = buffsDebuffsImage[1].sprite;
-            buffsDebuffsImage[1].sprite = buffsDebuffsImage[2].sprite;
-            buffsDebuffsImage[2].sprite = buffsDebuffsImage[3].sprite;
-            buffsDebuffsImage[3].sprite = buffsDebuffsImage[4].sprite;
-            buffsDebuffsImage[4].sprite = buffsDebuffsImage[5].sprite;
-            buffsDebuffsImage[5].sprite = buffsDebuffsImage[6].sprite;
-            buffsDebuffsImage[6].sprite = buffsDebuffsImage[7].sprite;
-            buffsDebuffsImage[7].sprite = buffsDebuffsImage[8].sprite;
-            buffsDebuffsImage[8].sprite = newBuffsDebuffsSprite;   
-            buffsDebuffs[0] = buffsDebuffs[1];
-            buffsDebuffs[1] = buffsDebuffs[2];
-            buffsDebuffs[2] = buffsDebuffs[3];
-            buffsDebuffs[3] = buffsDebuffs[4];
-            buffsDebuffs[4] = buffsDebuffs[5];
-            buffsDebuffs[5] = buffsDebuffs[6];
-            buffsDebuffs[6] = buffsDebuffs[7];
-            buffsDebuffs[7] = buffsDebuffs[8];
-            buffsDebuffs[8] = buffToAdd;         
+            buffsDebuffsImage.RemoveAt(0);
+            buffsDebuffsImage.Add(newBuffsDebuffsSprite);
+            buffDebuffNames.RemoveAt(0);
+            buffDebuffNames.Add(buffToAdd);
         }
+    }
+
+    public void RemoveBuffsDebuffsSprite(string buffToRemove, Sprite buffsDebuffsSprite)
+    {
+        if(buffCount == 0) return;
+        if (buffSpriteHandles.TryGetValue(buffToRemove, out var handle))
+    {
+        Addressables.Release(handle);
+        buffSpriteHandles.Remove(buffToRemove);
+    }
+
     }
 
     public void SetHealth(float healthPercent)

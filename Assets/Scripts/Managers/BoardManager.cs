@@ -8,6 +8,11 @@ public class BoardManager : MonoBehaviour
     public static BoardManager Instance { get; private set; }
     public static int currentlyActiveMonster = -1;
 
+    public static bool redTurn = true;
+    public static int numberOfMoves = 3;
+    public static int movedRed = 0;
+    public static int movedBlue = 0;
+
     // Your tile prefabs
     public GameObject[] tilePrefab = new GameObject[49];
     //public Transform monsterParent; // Canvas or an empty object inside the Canvas

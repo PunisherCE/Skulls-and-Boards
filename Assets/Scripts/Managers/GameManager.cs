@@ -58,7 +58,22 @@ public class GameManager : MonoBehaviour
                 if (BoardManager.Instance.monsters.ContainsKey(key))
                 {
                     BoardManager.Instance.monsters[key].RevertColor();
+                    BoardManager.Instance.monsters[key].numberOfMoves = 0;
                 }
+            }
+        }
+    }
+
+    public void ResetMoves()
+    {
+        Debug.Log("Reset the alreadyMoved dictionary at end of turn");
+        foreach (var key in alreadyMoved.Keys.ToList())
+        {
+            alreadyMoved[key] = false;
+            if (BoardManager.Instance.monsters.ContainsKey(key))
+            {
+                BoardManager.Instance.monsters[key].RevertColor();
+                BoardManager.Instance.monsters[key].numberOfMoves = 0;
             }
         }
     }
